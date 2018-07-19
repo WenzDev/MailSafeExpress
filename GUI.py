@@ -1,5 +1,8 @@
 import sys
-
+import stripe
+import gui_support
+stripe.api_key = 'sk_test_gC3XXUojw3qTRewhzCK3SlV6'
+import itemGUI_support
 try:
     from Tkinter import *
 except ImportError:
@@ -11,10 +14,6 @@ try:
 except ImportError:
     import tkinter.ttk as ttk
     py3 = True
-
-import gui_support
-
-
 
 
 def vp_start_gui():
@@ -142,13 +141,133 @@ class Mailsafe_Express:
         self.lbl_rsec.configure(text='''Confirm Security Envelope Code''')
         self.lbl_rsec.configure(width=884)
 
-    def next_sec(self):
-        if self.e_csec.get() != self.e_sec.get():
-            print("Error")
-        else:
-            self.sec_number = self.e_sec.get()
-            self.csec_number = self.e_csec.get()
-            print(self.sec_number, self.csec_number)
+ def vp_start_gui():
+ '''Starting point when module is the main routine.'''
+ global val, w, root
+        root = Tk()
+        top = Mailsafe_Express(root)
+        itemGUI_support.init(root, top)
+        root.mainloop()
+
+        w = None
+
+    def create_haz_page(root, *args, **kwargs):
+        '''Starting point when module is imported by another program.'''
+        global w, w_win, rt
+        rt = root
+        w = Toplevel(root)
+        top = Mailsafe_Express(w)
+        itemGUI_support.init(w, top, *args, **kwargs)
+        return (w, top)
+
+    def destroy_haz_page():
+        global w
+        w.destroy()
+        w = None
+
+    class haz_page:
+        def __init__(self, top=None):
+            '''This class configures and populates the toplevel window.
+               top is the toplevel containing window.'''
+            _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
+            _fgcolor = '#000000'  # X11 color: 'black'
+            _compcolor = '#d9d9d9'  # X11 color: 'gray85'
+            _ana1color = '#d9d9d9'  # X11 color: 'gray85'
+            _ana2color = '#d9d9d9'  # X11 color: 'gray85'
+            font10 = "-family Arial -size 12 -weight bold -slant roman " \
+                     "-underline 0 -overstrike 0"
+            font9 = "-family Arial -size 17 -weight bold -slant roman " \
+                    "-underline 0 -overstrike 0"
+
+            top.geometry("1920x1061+-197+37")
+            top.title("Mailsafe Express")
+            top.configure(background="#0066ab")
+            top.configure(highlightbackground="#f0f0f0")
+            top.configure(highlightcolor="black")
+
+            self.menubar = Menu(top, font="TkMenuFont", bg=_bgcolor, fg=_fgcolor)
+            top.configure(menu=self.menubar)
+
+            self.btn_Next = Button(top)
+            self.btn_Next.place(relx=0.86, rely=0.93, height=54, width=247)
+            self.btn_Next.configure(activebackground="#d9d9d9")
+            self.btn_Next.configure(activeforeground="#000000")
+            self.btn_Next.configure(background="#00497a")
+            self.btn_Next.configure(disabledforeground="#a3a3a3")
+            self.btn_Next.configure(font=font10)
+            self.btn_Next.configure(foreground="#ffffff")
+            self.btn_Next.configure(highlightbackground="#d9d9d9")
+            self.btn_Next.configure(highlightcolor="black")
+            self.btn_Next.configure(pady="0")
+            self.btn_Next.configure(takefocus="0")
+            self.btn_Next.configure(text='''Next''')
+
+            self.btn_startover = Button(top)
+            self.btn_startover.place(relx=0.01, rely=0.01, height=54, width=247)
+            self.btn_startover.configure(activebackground="#aaaaaa")
+            self.btn_startover.configure(activeforeground="#ffffff")
+            self.btn_startover.configure(background="#00497a")
+            self.btn_startover.configure(disabledforeground="#e0e0e0")
+            self.btn_startover.configure(font=font10)
+            self.btn_startover.configure(foreground="#ffffff")
+            self.btn_startover.configure(highlightbackground="#aaaaaa")
+            self.btn_startover.configure(highlightcolor="#ffffff")
+            self.btn_startover.configure(pady="0")
+            self.btn_startover.configure(takefocus="0")
+            self.btn_startover.configure(text='''Start Over''')
+
+            self.btn_haz = Button(top)
+            self.btn_haz.place(relx=0.09, rely=0.19, height=94, width=717)
+            self.btn_haz.configure(activebackground="#d9d9d9")
+            self.btn_haz.configure(activeforeground="#000000")
+            self.btn_haz.configure(background="#00497a")
+            self.btn_haz.configure(disabledforeground="#a3a3a3")
+            self.btn_haz.configure(font=font9)
+            self.btn_haz.configure(foreground="#ffffff")
+            self.btn_haz.configure(highlightbackground="#d9d9d9")
+            self.btn_haz.configure(highlightcolor="black")
+            self.btn_haz.configure(pady="0")
+            self.btn_haz.configure(text='''Hazardous''')
+
+            self.btn_nonhaz = Button(top)
+            self.btn_nonhaz.place(relx=0.51, rely=0.19, height=94, width=727)
+            self.btn_nonhaz.configure(activebackground="#d9d9d9")
+            self.btn_nonhaz.configure(activeforeground="#000000")
+            self.btn_nonhaz.configure(background="#00497a")
+            self.btn_nonhaz.configure(disabledforeground="#a3a3a3")
+            self.btn_nonhaz.configure(font=font9)
+            self.btn_nonhaz.configure(foreground="#ffffff")
+            self.btn_nonhaz.configure(highlightbackground="#d9d9d9")
+            self.btn_nonhaz.configure(highlightcolor="black")
+            self.btn_nonhaz.configure(pady="0")
+            self.btn_nonhaz.configure(text='''Non-Hazardous''')
+
+            self.Label1 = Label(top)
+            self.Label1.place(relx=0.51, rely=0.28, height=631, width=724)
+            self.Label1.configure(activebackground="#f9f9f9")
+            self.Label1.configure(activeforeground="black")
+            self.Label1.configure(background="#d9d9d9")
+            self.Label1.configure(disabledforeground="#a3a3a3")
+            self.Label1.configure(foreground="#000000")
+            self.Label1.configure(highlightbackground="#d9d9d9")
+            self.Label1.configure(highlightcolor="black")
+
+            self.Label2 = Label(top)
+            self.Label2.place(relx=0.09, rely=0.28, height=631, width=714)
+            self.Label2.configure(activebackground="#f9f9f9")
+            self.Label2.configure(activeforeground="black")
+            self.Label2.configure(background="#d9d9d9")
+            self.Label2.configure(disabledforeground="#a3a3a3")
+            self.Label2.configure(foreground="#000000")
+            self.Label2.configure(highlightbackground="#d9d9d9")
+            self.Label2.configure(highlightcolor="black")
+        def next_sec(self):
+            if self.e_csec.get() == self.e_sec.get():
+                self.sec_number = self.e_sec.get()
+                self.csec_number = self.e_csec.get()
+                print(self.sec_number, self.csec_number)
+            else:
+                print("Error: Security Envelope Codes Do Not Match!")
 
 
 if __name__ == '__main__':
