@@ -47,23 +47,10 @@ def destroy_Mailsafe_Express():
     w = None
 
 
-class Mailsafe_Express:
+class Mailsafe_Express():
     def __init__(self, top=None):
         self.sec_number = None
         self.csec_number = None
-
-        self.frames = {}
-        for F in (Mailsafe_Express, haz_page):
-            page_name = F.__name__
-            self.frames[page_name] = frame
-
-            # put all of the pages in the same location;
-            # the one on the top of the stacking order
-            # will be the one that is visible.
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.show_frame("StartPage")
-
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
@@ -156,12 +143,16 @@ class Mailsafe_Express:
         self.lbl_rsec.configure(width=884)
 
     def next_sec(self):
-        if self.e_csec.get() == self.e_sec.get():
-            self.sec_number = self.e_sec.get()
-            self.csec_number = self.e_csec.get()
-            print(self.sec_number, self.csec_number)
+        if self.e_sec.get() == self.e_csec.get():
+            print("Success!")
         else:
             print("Error: Security Envelope Codes Do Not Match!")
+
+    def get_sec(self):
+        return self.sec_number
+
+    def get_csec(self):
+        return self.csec_number
 
 
 def vp_start_haz_page():
