@@ -24,6 +24,7 @@ def destroy_window():
     top_level.destroy()
     top_level = None
 
+
 if __name__ == '__main__':
     import testgui2
     testgui2.vp_start_gui()

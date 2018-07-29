@@ -57,8 +57,6 @@ class New_Toplevel:
         top.title("New Toplevel")
         top.configure(background="#d9d9d9")
 
-
-
         self.Button1 = Button(top)
         self.Button1.place(relx=0.22, rely=0.16, height=251, width=331)
         self.Button1.configure(activebackground="#d9d9d9")
@@ -75,14 +73,6 @@ class New_Toplevel:
 
     def switch_page(self):
         testgui2.create_New_Toplevel(root)
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

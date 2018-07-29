@@ -335,9 +335,5 @@ class info_form:
         self.TCombobox1.configure(takefocus="")
 
 
-
-
-
-
 if __name__ == '__main__':
     vp_start_gui()
