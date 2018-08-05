@@ -60,7 +60,7 @@ class info_form:
         self.style.configure('.',foreground=_fgcolor)
         self.style.configure('.',font="TkDefaultFont")
         self.style.map('.',background=
-            [('selected', _compcolor), ('active',_ana2color)])
+            [('selected', _compcolor), ('active', _ana2color)])
 
         top.geometry("1920x1061+1762+0")
         top.title("Mailsafe Express")
