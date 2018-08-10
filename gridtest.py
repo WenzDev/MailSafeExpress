@@ -12,10 +12,7 @@ class SeaofBTCapp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
 
-        self.attributes('-fullscreen', True)
 
-
-        # Fix the icon for window ? tk.Tk.iconbitmap(self, default="if_shopping_cart_16x16_9988.ico")
 
         container.pack(side="top", fill="both", expand= True)
         container.grid_rowconfigure(0, weight=1)
@@ -44,18 +41,44 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.rowconfigure(0, minsize=90)
+        self.rowconfigure(1, minsize=90)
+        self.rowconfigure(2, minsize=90)
+        self.rowconfigure(3, minsize=90)
+        self.rowconfigure(4, minsize=90)
+        self.rowconfigure(5, minsize=90)
+        self.rowconfigure(6, minsize=90)
+        self.columnconfigure(0, minsize=90)
+        self.columnconfigure(1, minsize=90)
+        self.columnconfigure(2, minsize=90)
+        self.columnconfigure(3, minsize=90)
+        self.columnconfigure(4, minsize=90)
+        self.columnconfigure(5, minsize=90)
+        self.columnconfigure(6, minsize=90)
+        self.columnconfigure(9, minsize=30)
         label = tk.Label(self, text="Start Page", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
+        label.grid(row=2)
 
-        button1 = ttk.Button(self, text="Visit Page 1",
+        button1 = ttk.Button(self, text="Visit Page 1")
+        button1.grid(row=0, sticky=W, ipady=25, ipadx=80)
+
+        btn_Next1 = ttk.Button(self, text="Next",
                             command=lambda: controller.show_frame(PageOne))
-        button1.pack()
+        btn_Next1.grid(row=6, column=9, sticky=E, ipady=25, ipadx=80)
+
+        btn_StartOver = ttk.Button(self, text="Start Over")
+        btn_StartOver.grid(row=4, column=4, sticky=SE)
+
+        btn_StartOver1 = ttk.Button(self, text="Start Over")
+        btn_StartOver1.grid(row=0, column=2, sticky=W)
+
 
 
 class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
         label = tk.Label(self, text="Page One", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
         font9 = "-family Arial -size 12 -weight bold -slant roman " \

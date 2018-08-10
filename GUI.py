@@ -211,7 +211,7 @@ class haz_page:
         self.btn_Next.configure(background="#00497a")
         self.btn_Next.configure(disabledforeground="#a3a3a3")
         self.btn_Next.configure(font=font10)
-        self.btn_Next.configure(foreground="#ffffff")
+        self.btn_Next.configure(foreground="#rffffff")
         self.btn_Next.configure(highlightbackground="#d9d9d9")
         self.btn_Next.configure(highlightcolor="black")
         self.btn_Next.configure(pady="0")

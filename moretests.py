@@ -1,46 +1,78 @@
-import sys
-
-try:
-    from Tkinter import *
-except ImportError:
-    from tkinter import *
-
-try:
-    import ttk
-    py3 = False
-except ImportError:
-    import tkinter.ttk as ttk
-    py3 = True
-
-import infoform_support
-
-def vp_start_gui():
-    '''Starting point when module is the main routine.'''
-    global val, w, root
-    root = Tk()
-    infoform_support.set_Tk_var()
-    top = info_form(root)
-    infoform_support.init(root, top)
-    root.mainloop()
-
-w = None
-def create_info_form(root, *args, **kwargs):
-    '''Starting point when module is imported by another program.'''
-    global w, w_win, rt
-    rt = root
-    w = Toplevel (root)
-    infoform_support.set_Tk_var()
-    top = info_form(w)
-    infoform_support.init(w, top, *args, **kwargs)
-    return (w, top)
-
-def destroy_info_form():
-    global w
-    w.destroy()
-    w = None
+from tkinter import *
+import tkinter as tk
 
 
-class info_form:
+class Frame(tk.Tk):
+
+    def __init__(self, *args, **kwargs):
+
+        tk.Frame.__init__(self, *args, **kwargs)
+
+        super().__init__()
+        self.tk = tk.Tk()
+        container = tk.Frame(self)
+
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+        self.frames = {}
+
+        for F in (SecurityPage, InformationPage):
+
+            frame = F(self, container)
+
+            self.frames[F] = frame
+
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame(SecurityPage)
+
+    def show_frame(self, cont):
+
+        frame = self.frames[cont]
+        frame.tkraise()
+
+def qf(param):
+    print(param)
+
+
+class SecurityPage(Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        font9 = "-family Arial -size 17 -weight bold -slant roman " \
+                "-underline 0 -overstrike 0"
+        self.btn_startover = Button(parent, text="Start Over")
+        self.btn_startover.place(relx=0.01, rely=0.01, height=54, width=247)
+        self.btn_startover.configure(activebackground="#aaaaaa")
+        self.btn_startover.configure(activeforeground="#ffffff")
+        self.btn_startover.configure(background="#00497a")
+        self.btn_startover.configure(disabledforeground="#e0e0e0")
+        self.btn_startover.configure(font=font9)
+        self.btn_startover.configure(foreground="#ffffff")
+        self.btn_startover.configure(highlightbackground="#aaaaaa")
+        self.btn_startover.configure(highlightcolor="#ffffff")
+        self.btn_startover.configure(pady="0")
+        self.btn_startover.configure(takefocus="0")
+        self.btn_startover.configure(text='''Start Over''')
+
+        self.btn_Next = Button(parent, text="Next")
+        self.btn_Next.place(relx=0.86, rely=0.93, height=54, width=247)
+        self.btn_Next.configure(activebackground="#d9d9d9")
+        self.btn_Next.configure(activeforeground="#000000")
+        self.btn_Next.configure(background="#00497a")
+        self.btn_Next.configure(disabledforeground="#a3a3a3")
+        self.btn_Next.configure(font=font9)
+        self.btn_Next.configure(foreground="#ffffff")
+        self.btn_Next.configure(highlightbackground="#d9d9d9")
+        self.btn_Next.configure(highlightcolor="black")
+        self.btn_Next.configure(pady="0")
+        self.btn_Next.configure(takefocus="0")
+        self.btn_Next.configure(text='''Next''')
+        self.btn_Next.configure(command=lambda: controller.show_frame(InformationPage))
+
+
+class InformationPage:
     def __init__(self, top=None):
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
@@ -53,14 +85,14 @@ class info_form:
             "-underline 0 -overstrike 0"
         font9 = "-family Arial -size 12 -weight bold -slant roman "  \
             "-underline 0 -overstrike 0"
-        self.style = ttk.Style()
+        self.style = Tk.ttk.Style()
         if sys.platform == "win32":
             self.style.theme_use('winnative')
         self.style.configure('.',background=_bgcolor)
         self.style.configure('.',foreground=_fgcolor)
         self.style.configure('.',font="TkDefaultFont")
         self.style.map('.',background=
-            [('selected', _compcolor), ('active', _ana2color)])
+            [('selected', _compcolor), ('active',_ana2color)])
 
         top.geometry("1920x1061+1762+0")
         top.title("Mailsafe Express")
@@ -327,12 +359,13 @@ class info_form:
         self.Label1_6.configure(text='''Country''')
         self.Label1_6.configure(width=124)
 
-        self.TCombobox1 = ttk.Combobox(top)
-        self.TCombobox1.w
-        self.TCombobox1.configure(textvariable=infoform_support.combobox)
-        self.TCombobox1.configure(width=513)
-        self.TCombobox1.configure(takefocus="")
+        # self.TCombobox1 = ttk.Combobox(top)
+        # self.TCombobox1.place(relx=0.52, rely=0.75, relheight=0.04
+           #      , relwidth=0.27)
+        # self.TCombobox1.configure(textvariable=_support.combobox)
+        # self.TCombobox1.configure(width=513)
+        # self.TCombobox1.configure(takefocus="")
 
 
-if __name__ == '__main__':
-    vp_start_gui()
+        app = Frame
+        app.mainloop(self)
