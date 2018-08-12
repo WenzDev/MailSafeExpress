@@ -11,13 +11,20 @@ class SeaofBTCapp(tk.Tk):
 
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
+        self.rowconfigure(0, minsize=20)
+        self.rowconfigure(1, minsize=20)
+        self.rowconfigure(2, minsize=20)
+        self.rowconfigure(3, minsize=20)
+        self.rowconfigure(4, minsize=20)
+        self.rowconfigure(5, minsize=20)
+        self.rowconfigure(6, minsize=20)
+        self.rowconfigure(7, minsize=20)
+        self.rowconfigure(8, minsize=20)
+        self.rowconfigure(9, minsize=20)
 
-        self.attributes('-fullscreen', True)
 
 
-        # Fix the icon for window ? tk.Tk.iconbitmap(self, default="if_shopping_cart_16x16_9988.ico")
-
-        container.pack(side="top", fill="both", expand= True)
+        container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 

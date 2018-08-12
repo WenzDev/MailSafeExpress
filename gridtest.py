@@ -12,7 +12,7 @@ class SeaofBTCapp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
 
-
+        # self.attributes('-fullscreen', True)
 
         container.pack(side="top", fill="both", expand= True)
         container.grid_rowconfigure(0, weight=1)
@@ -41,36 +41,36 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.rowconfigure(0, minsize=90)
-        self.rowconfigure(1, minsize=90)
-        self.rowconfigure(2, minsize=90)
-        self.rowconfigure(3, minsize=90)
-        self.rowconfigure(4, minsize=90)
-        self.rowconfigure(5, minsize=90)
-        self.rowconfigure(6, minsize=90)
-        self.columnconfigure(0, minsize=90)
-        self.columnconfigure(1, minsize=90)
-        self.columnconfigure(2, minsize=90)
-        self.columnconfigure(3, minsize=90)
-        self.columnconfigure(4, minsize=90)
-        self.columnconfigure(5, minsize=90)
-        self.columnconfigure(6, minsize=90)
-        self.columnconfigure(9, minsize=30)
-        label = tk.Label(self, text="Start Page", font=LARGE_FONT)
-        label.grid(row=2)
+        font9 = "-family Arial -size 12 -weight bold -slant roman " \
+                "-underline 0 -overstrike 0"
+        self.rowconfigure(0, minsize=90, weight=1)
+        self.rowconfigure(1, minsize=90, weight=1)
+        self.rowconfigure(2, minsize=90, weight=1)
+        self.rowconfigure(3, minsize=90, weight=1)
+        self.rowconfigure(4, minsize=90, weight=1)
+        self.rowconfigure(5, minsize=90, weight=1)
+        self.rowconfigure(6, minsize=90, weight=1)
+        self.columnconfigure(0, minsize=90, weight=1)
+        self.columnconfigure(1, minsize=90, weight=1)
+        self.columnconfigure(2, minsize=90, weight=1)
+        self.columnconfigure(3, minsize=90, weight=1)
+        self.columnconfigure(4, minsize=90, weight=1)
+        self.columnconfigure(5, minsize=90, weight=1)
+        self.columnconfigure(6, minsize=90, weight=1)
+        self.columnconfigure(9, minsize=90, weight=1)
+        label = tk.Label(self, text="Envelope Security Code", font=LARGE_FONT)
+        label.grid(row=2, column=2)
+
+        e_sec = tk.Entry(self, font=font9)
+        e_sec.grid(row=3, column=2)
 
         button1 = ttk.Button(self, text="Visit Page 1")
-        button1.grid(row=0, sticky=W, ipady=25, ipadx=80)
+        button1.grid(row=0, sticky=N+E+S+W, ipady=25, ipadx=80)
 
         btn_Next1 = ttk.Button(self, text="Next",
-                            command=lambda: controller.show_frame(PageOne))
-        btn_Next1.grid(row=6, column=9, sticky=E, ipady=25, ipadx=80)
+                               command=lambda: controller.show_frame(PageOne))
+        btn_Next1.grid(row=6, column=9, sticky=N+E+S+W, ipady=25, ipadx=80)
 
-        btn_StartOver = ttk.Button(self, text="Start Over")
-        btn_StartOver.grid(row=4, column=4, sticky=SE)
-
-        btn_StartOver1 = ttk.Button(self, text="Start Over")
-        btn_StartOver1.grid(row=0, column=2, sticky=W)
 
 
 
