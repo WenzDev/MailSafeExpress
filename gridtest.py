@@ -88,7 +88,7 @@ class StartPage(tk.Frame):
         button1 = tk.Button(self, text="Start Over")
         button1.configure(font=buttonfont, fg='#ffffff', background='#00497a')
         button1.grid(row=0, column=0, columnspan=2, sticky=N+E+S+W)
-
+        # commit
         # button2 = ttk.Button(self, text="Filler Button")
         #         # button2.grid(row=0, column=2, sticky=N+E+S+W)
         #         # button3 = ttk.Button(self, text="Filler Button")

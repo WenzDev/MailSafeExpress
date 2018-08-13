@@ -20,7 +20,7 @@
 # self.columnconfigure(8, minsize=60, weight=1)
 # self.columnconfigure(9, minsize=60, weight=1)
 # self.columnconfigure(10, minsize=60, weight=1)
-
+# commit
 #      button2 = ttk.Button(self, text="Filler Button")
 #      button2.grid(row=0, column=2, sticky=N+E+S+W)
 #      button3 = ttk.Button(self, text="Filler Button")
