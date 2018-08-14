@@ -46,7 +46,7 @@ class StartPage(tk.Frame):
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
                 "-underline 0 -overstrike 0"
 
-        self.rowconfigure(0, minsize=60, weight=1)
+        self.rowconfigure(0, minsize=60, weight=0)
         self.rowconfigure(1, minsize=60, weight=1)
         self.rowconfigure(2, minsize=60, weight=1)
         self.rowconfigure(3, minsize=30, weight=0)
@@ -56,7 +56,7 @@ class StartPage(tk.Frame):
         self.rowconfigure(7, minsize=30, weight=0)
         self.rowconfigure(8, minsize=30, weight=1)
         self.rowconfigure(9, minsize=60, weight=1)
-        self.rowconfigure(10, minsize=60, weight=1)
+        self.rowconfigure(10, minsize=30, weight=1)
         self.columnconfigure(0, minsize=60, weight=1)
         self.columnconfigure(1, minsize=60, weight=1)
         self.columnconfigure(2, minsize=60, weight=1)
@@ -68,6 +68,12 @@ class StartPage(tk.Frame):
         self.columnconfigure(8, minsize=60, weight=1)
         self.columnconfigure(9, minsize=60, weight=1)
         self.columnconfigure(10, minsize=60, weight=1)
+        image = PhotoImage(file="msecrop.png")
+        l_MSEL = tk.Label(self, image=image)
+        l_MSEL.configure(background='#0066AB', borderwidth=0)
+        l_MSEL.photo = image
+        l_MSEL.grid(row=0, column=5, rowspan=3, sticky=N+E+S+W)
+
         # Label for ESC
         l_sec = tk.Label(self, text="Envelope Security Code", font=font9)
         l_sec.configure(bg='#0066AB')
@@ -84,54 +90,17 @@ class StartPage(tk.Frame):
         # Entry for Confirm Security Code
         e_csec = tk.Entry(self, font=font9)
         e_csec.grid(row=7, column=4, columnspan=3, sticky=E+W)
-
+        # Start Over Button
         button1 = tk.Button(self, text="Start Over")
-        button1.configure(font=buttonfont, fg='#ffffff', background='#00497a')
-        button1.grid(row=0, column=0, columnspan=2, sticky=N+E+S+W)
-        # commit
-        # button2 = ttk.Button(self, text="Filler Button")
-        #         # button2.grid(row=0, column=2, sticky=N+E+S+W)
-        #         # button3 = ttk.Button(self, text="Filler Button")
-        #         # button3.grid(row=0, column=3, sticky=N+E+S+W)
-        #         # button4 = ttk.Button(self, text="Filler Button")
-        #         # button4.grid(row=0, column=4, sticky=N+E+S+W)
-        #         # button5 = ttk.Button(self, text="Filler Button")
-        #         # button5.grid(row=0, column=5, sticky=N+E+S+W)
-        #         # button6 = ttk.Button(self, text="Filler Button")
-        #         # button6.grid(row=0, column=6, sticky=N+E+S+W)
-        #         # button7 = ttk.Button(self, text="Filler Button")
-        #         # button7.grid(row=0, column=7, sticky=N+E+S+W)
-        #         # button8 = ttk.Button(self, text="Filler Button")
-        #         # button8.grid(row=0, column=8, sticky=N+E+S+W)
-        #         # button9 = ttk.Button(self, text="Filler Button")
-        #         # button9.grid(row=0, column=9, sticky=N+E+S+W)
-        #         # button10 = ttk.Button(self, text="Filler Button")
-        #         # button10.grid(row=0, column=10, sticky=N+E+S+W)
-        #         # button11 = ttk.Button(self, text="Filler Button")
-        #         # button11.grid(row=1, column=0, sticky=N+E+S+W)
-        #         # button13 = ttk.Button(self, text="Filler Button")
-        #         # button13.grid(row=2, column=0, sticky=N+E+S+W)
-        #         # button14 = ttk.Button(self, text="Filler Button")
-        #         # button14.grid(row=3, column=0, sticky=N+E+S+W)
-        #         # button15 = ttk.Button(self, text="Filler Button")
-        #         # button15.grid(row=4, column=0, sticky=N+E+S+W)
-        #         # button16 = ttk.Button(self, text="Filler Button")
-        #         # button16.grid(row=5, column=0, sticky=N+E+S+W)
-        #         # button17 = ttk.Button(self, text="Filler Button")
-        #         # button17.grid(row=6, column=0, sticky=N+E+S+W)
-        #         # button18 = ttk.Button(self, text="Filler Button")
-        #         # button18.grid(row=7, column=0, sticky=N+E+S+W)
-        #         # button19 = ttk.Button(self, text="Filler Button")
-        #         # button19.grid(row=8, column=0, sticky=N+E+S+W)
-        #         # button20 = ttk.Button(self, text="Filler Button")
-        #         # button20.grid(row=9, column=0, sticky=N+E+S+W)
-        #         # button21 = ttk.Button(self, text="Filler Button")
-        #         # button21.grid(row=10, column=0, sticky=N+E+S+W)
-
+        button1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                          borderwidth=2)
+        button1.grid(row=0, column=0, columnspan=2, sticky=N+E+W)
+        # Next Page Button
         btn_Next1 = tk.Button(self, text="Next",
                                command=lambda: controller.show_frame(PageOne))
-        btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a')
-        btn_Next1.grid(row=10, column=9, columnspan=2, sticky=N+E+S+W)
+        btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                            relief=SUNKEN)
+        btn_Next1.grid(row=10, column=9, columnspan=2, sticky=S+E+W)
 
 
 class PageOne(tk.Frame):
