@@ -41,6 +41,8 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.securitycode = None
+        self.csecuritycode = None
         font9 = "-family Arial -size 24 -weight bold -slant roman " \
                 "-underline 0 -overstrike 0"
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
@@ -80,27 +82,35 @@ class StartPage(tk.Frame):
         l_sec.configure(foreground="#ffffff")
         l_sec.grid(row=3, column=5, sticky=N+E+W)
         # Entry for Security Code
-        e_sec = tk.Entry(self, font=font9)
-        e_sec.grid(row=4, column=4, columnspan=3, sticky=E+W)
+        self.e_sec = tk.Entry(self, font=font9)
+        self.e_sec.grid(row=4, column=4, columnspan=3, sticky=E+W)
         # Label for CSEC
         l_csec = tk.Label(self, text="Confirm Envelope Security Code", font=font9)
         l_csec.configure(foreground="#ffffff")
         l_csec.configure(bg='#0066AB')
         l_csec.grid(row=6, column=5, sticky=N+E+W)
         # Entry for Confirm Security Code
-        e_csec = tk.Entry(self, font=font9)
-        e_csec.grid(row=7, column=4, columnspan=3, sticky=E+W)
+        self.e_csec = tk.Entry(self, font=font9)
+        self.e_csec.grid(row=7, column=4, columnspan=3, sticky=E+W)
         # Start Over Button
         button1 = tk.Button(self, text="Start Over")
         button1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                           borderwidth=2)
+        button1.configure(height=3, width=15)
         button1.grid(row=0, column=0, columnspan=2, sticky=N+E+W)
         # Next Page Button
         btn_Next1 = tk.Button(self, text="Next",
-                               command=lambda: controller.show_frame(PageOne))
+                              command=self.check_sec)
         btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
+        btn_Next1.configure(height=3, width=15)
         btn_Next1.grid(row=10, column=9, columnspan=2, sticky=S+E+W)
+
+    def check_sec(self):
+        if self.e_sec.get() == self.e_csec.get():
+            print("Success! Your envelope security code is:" + "" + self.e_sec.get())
+        else:
+            print("Error: Type that again!")
 
 
 class PageOne(tk.Frame):
