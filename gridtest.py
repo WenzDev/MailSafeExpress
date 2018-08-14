@@ -11,6 +11,8 @@ class SeaofBTCapp(tk.Tk):
 
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
+        self.title("Mailsafe Express v1.0")
+        self.iconbitmap(default='mseico256.ico')
 
        # self.attributes('-fullscreen', True)
 
@@ -106,10 +108,23 @@ class StartPage(tk.Frame):
         btn_Next1.configure(height=3, width=15)
         btn_Next1.grid(row=10, column=9, columnspan=2, sticky=S+E+W)
 
+    def errorsec(self):
+        font9 = "-family Arial -size 24 -weight bold -slant roman " \
+                "-underline 0 -overstrike 0"
+        popup = tk.Toplevel()
+        popup.title("Error")
+        popup.configure(background='#0066AB')
+        l_error = tk.Label(popup, text="Your security codes don't match!", font=font9, background='#0066AB',
+                           foreground="#ffffff")
+        l_error.pack(side="top", fill="x", pady=10)
+        btn_close = tk.Button(popup, text="Okay", command=popup.destroy)
+        btn_close.pack()
+
     def check_sec(self):
         if self.e_sec.get() == self.e_csec.get():
-            print("Success! Your envelope security code is:" + "" + self.e_sec.get())
+            print("Success! Your envelope security code is:" + " " + self.e_sec.get())
         else:
+            self.errorsec()
             print("Error: Type that again!")
 
 
