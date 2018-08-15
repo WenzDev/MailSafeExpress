@@ -163,15 +163,15 @@ class PageOne(tk.Frame):
         btn_so2 = tk.Button(self, text="Start Over")
         btn_so2.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                           borderwidth=2)
-        btn_so2.configure(height=3, width=15)
-        btn_so2.grid(row=0, column=0, columnspan=2, sticky=N+E+W)
+        btn_so2.configure(height=3, width=10)
+        btn_so2.grid(row=0, column=0, sticky=N+E+W)
 
         btn_next2 = tk.Button(self, text="Next",
                               command=lambda: controller.show_frame(PageTwo))
         btn_next2.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
-        btn_next2.configure(height=3, width=15)
-        btn_next2.grid(row=10, column=9, columnspan=2, sticky=S+E+W)
+        btn_next2.configure(height=3, width=10)
+        btn_next2.grid(row=10, column=10, sticky=S+E+W)
 
 
 class PageTwo(tk.Frame):
@@ -181,19 +181,21 @@ class PageTwo(tk.Frame):
         tk.Frame.__init__(self, parent)
         font9 = "-family Arial -size 24 -weight bold -slant roman " \
                 "-underline 0 -overstrike 0"
+        entryfont = "-family Arial -size 20 -weight normal -slant roman " \
+                "-underline 0 -overstrike 0"
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
                      "-underline 0 -overstrike 0"
         self.rowconfigure(0, minsize=60, weight=1)
         self.rowconfigure(1, minsize=60, weight=1)
-        self.rowconfigure(2, minsize=60, weight=1)
-        self.rowconfigure(3, minsize=30, weight=0)
-        self.rowconfigure(4, minsize=30, weight=0)
+        self.rowconfigure(2, minsize=30, weight=0)
+        self.rowconfigure(3, minsize=30, weight=1)
+        self.rowconfigure(4, minsize=30, weight=1)
         self.rowconfigure(5, minsize=60, weight=1)
         self.rowconfigure(6, minsize=30, weight=0)
         self.rowconfigure(7, minsize=30, weight=0)
         self.rowconfigure(8, minsize=30, weight=1)
         self.rowconfigure(9, minsize=60, weight=1)
-        self.rowconfigure(10, minsize=30, weight=1)
+        self.rowconfigure(10, minsize=60, weight=1)
         self.columnconfigure(0, minsize=60, weight=1)
         self.columnconfigure(1, minsize=60, weight=1)
         self.columnconfigure(2, minsize=60, weight=1)
@@ -205,22 +207,77 @@ class PageTwo(tk.Frame):
         self.columnconfigure(8, minsize=60, weight=1)
         self.columnconfigure(9, minsize=60, weight=1)
         self.columnconfigure(10, minsize=60, weight=1)
-        font9 = "-family Arial -size 12 -weight bold -slant roman "  \
-            "-underline 0 -overstrike 0"
 
+        fbutton = tk.Button(self, text="Filler Button")
+        fbutton.grid(row=0, column=1, sticky=N+E+S+W)
+        button2 = tk.Button(self, text="Filler Button")
+        button2.grid(row=0, column=2, sticky=N+E+S+W)
+        button3 = tk.Button(self, text="Filler Button")
+        button3.grid(row=0, column=3, sticky=N+E+S+W)
+        button4 = tk.Button(self, text="Filler Button")
+        button4.grid(row=0, column=4, sticky=N+E+S+W)
+        button5 = tk.Button(self, text="Filler Button")
+        button5.grid(row=0, column=5, sticky=N+E+S+W)
+        button6 = tk.Button(self, text="Filler Button")
+        button6.grid(row=0, column=6, sticky=N+E+S+W)
+        button7 = tk.Button(self, text="Filler Button")
+        button7.grid(row=0, column=7, sticky=N+E+S+W)
+        button8 = tk.Button(self, text="Filler Button")
+        button8.grid(row=0, column=8, sticky=N+E+S+W)
+        button9 = tk.Button(self, text="Filler Button")
+        button9.grid(row=0, column=9, sticky=N+E+S+W)
+        button10 = tk.Button(self, text="Filler Button")
+        button10.grid(row=0, column=10, sticky=N+E+S+W)
+        button11 = tk.Button(self, text="Filler Button")
+        button11.grid(row=1, column=0, sticky=N+E+S+W)
+        button13 = tk.Button(self, text="Filler Button")
+        button13.grid(row=2, column=0, sticky=N+E+S+W)
+        button14 = tk.Button(self, text="Filler Button")
+        button14.grid(row=3, column=0, sticky=N+E+S+W)
+        button15 = tk.Button(self, text="Filler Button")
+        button15.grid(row=4, column=0, sticky=N+E+S+W)
+        button16 = tk.Button(self, text="Filler Button")
+        button16.grid(row=5, column=0, sticky=N+E+S+W)
+        button17 = tk.Button(self, text="Filler Button")
+        button17.grid(row=6, column=0, sticky=N+E+S+W)
+        button18 = tk.Button(self, text="Filler Button")
+        button18.grid(row=7, column=0, sticky=N+E+S+W)
+        button19 = tk.Button(self, text="Filler Button")
+        button19.grid(row=8, column=0, sticky=N+E+S+W)
+        button20 = tk.Button(self, text="Filler Button")
+        button20.grid(row=9, column=0, sticky=N+E+S+W)
+        button21 = tk.Button(self, text="Filler Button")
+        button21.grid(row=10, column=0, sticky=N+E+S+W)
+        # Start Over Button (Page 3)
         btn_so3 = tk.Button(self, text="Start Over",
                              command=lambda: controller.show_frame(StartPage))
         btn_so3.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                           borderwidth=2)
-        btn_so3.configure(height=3, width=15)
-        btn_so3.grid(row=0, column=0, columnspan=2, sticky=N+E+W)
-
+        btn_so3.configure(height=3, width=10)
+        btn_so3.grid(row=0, column=0, sticky=N+E+W)
+        # Next Button (Page 3)
         btn_next3 = tk.Button(self, text="Next",
                              command=lambda: controller.show_frame(StartPage))
         btn_next3.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
-        btn_next3.configure(height=3, width=15)
+        btn_next3.configure(height=3, width=10)
         btn_next3.grid(row=10, column=9, columnspan=2, sticky=S+E+W)
+
+        self.e_fname = tk.Entry(self, font=entryfont)
+        self.e_fname.grid(row=2, column=2, columnspan=3, sticky=E+W)
+
+        self.e_lname = tk.Entry(self, font=entryfont)
+        self.e_lname.grid(row=2, column=6, columnspan=3, sticky=E+W)
+
+        self.e_mail = tk.Entry(self, font=entryfont)
+        self.e_mail.grid(row=4, column=2, columnspan=7, sticky=E+W)
+
+        self.e_tele = tk.Entry(self, font=entryfont)
+        self.e_tele.grid(row=6, column=2, columnspan=7, sticky=E+W)
+
+
+
+
 
 
 app = SeaofBTCapp()
