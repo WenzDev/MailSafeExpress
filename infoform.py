@@ -327,11 +327,7 @@ class info_form:
         self.Label1_6.configure(text='''Country''')
         self.Label1_6.configure(width=124)
 
-        self.TCombobox1 = ttk.Combobox(top)
-        self.TCombobox1.w
-        self.TCombobox1.configure(textvariable=infoform_support.combobox)
-        self.TCombobox1.configure(width=513)
-        self.TCombobox1.configure(takefocus="")
+
 
 
 if __name__ == '__main__':

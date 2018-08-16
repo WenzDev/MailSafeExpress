@@ -60,6 +60,7 @@ class App:
         print(self.first_name)
         print(self.last_name)
         print(self.digits)
+        print*self.creditnumber,
 
 
 top = Tk()
