@@ -275,16 +275,18 @@ class PageTwo(tk.Frame):
                 "-underline 0 -overstrike 0"
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
                      "-underline 0 -overstrike 0"
+        specfont = "-family Arial -size 15 -weight bold -slant roman " \
+                "-underline 0 -overstrike 0"
         self.rowconfigure(0, minsize=60, weight=0)
         self.rowconfigure(1, minsize=60, weight=1)
         self.rowconfigure(2, minsize=30, weight=0)
         self.rowconfigure(3, minsize=30, weight=1)
         self.rowconfigure(4, minsize=30, weight=0)
-        self.rowconfigure(5, minsize=60, weight=1)
+        self.rowconfigure(5, minsize=30, weight=1)
         self.rowconfigure(6, minsize=30, weight=0)
         self.rowconfigure(7, minsize=60, weight=1)
         self.rowconfigure(8, minsize=30, weight=0)
-        self.rowconfigure(9, minsize=60, weight=1)
+        self.rowconfigure(9, minsize=90, weight=1)
         self.rowconfigure(10, minsize=30, weight=0)
         self.rowconfigure(11, minsize=60, weight=1)
         self.rowconfigure(12, minsize=30, weight=0)
@@ -301,6 +303,7 @@ class PageTwo(tk.Frame):
         self.columnconfigure(8, minsize=60, weight=1)
         self.columnconfigure(9, minsize=60, weight=1)
         self.columnconfigure(10, minsize=60, weight=1)
+        self.columnconfigure(11, minsize=60, weight=1)
 
         # fbutton = tk.Button(self, text="Filler Button")
         # fbutton.grid(row=0, column=1, sticky=N+E+S+W)
@@ -369,35 +372,35 @@ class PageTwo(tk.Frame):
         btn_Next1.configure(height=3, width=20)
         btn_Next1.grid(row=13, column=12, sticky=S+E+W)
         # Label for First Name
-        l_fname = tk.Label(self, text="First Name", font=font9)
+        l_fname = tk.Label(self, text="First Name *", font=font9)
         l_fname.configure(background='#0066AB', foreground='#ffffff')
         l_fname.grid(row=1, column=2, sticky=W+S)
         # Entry for First Name
         self.e_fname = tk.Entry(self, font=entryfont)
         self.e_fname.grid(row=2, column=2, columnspan=4, sticky=E+W)
         # Label for First Name
-        l_lname = tk.Label(self, text="Last Name", font=font9)
+        l_lname = tk.Label(self, text="Last Name *", font=font9)
         l_lname.configure(background='#0066AB', foreground='#ffffff')
         l_lname.grid(row=1, column=7, sticky=W+S)
         # Entry for Last Name
         self.e_lname = tk.Entry(self, font=entryfont)
         self.e_lname.grid(row=2, column=7, columnspan=4, sticky=E+W)
         # Label for Email
-        self.l_email = tk.Label(self, text="Email Address", font=font9)
+        self.l_email = tk.Label(self, text="Email Address *", font=font9)
         self.l_email.configure(background='#0066AB', foreground='#ffffff')
         self.l_email.grid(row=3, column=2, sticky=W+S)
         # Entry for Email
         self.e_mail = tk.Entry(self, font=entryfont)
         self.e_mail.grid(row=4, column=2, columnspan=4, sticky=E+W)
         # Label for Telephone Number
-        self.l_tele = tk.Label(self, text="Telephone Number", font=font9)
+        self.l_tele = tk.Label(self, text="Telephone Number *", font=font9)
         self.l_tele.configure(background='#0066AB', foreground='#ffffff')
         self.l_tele.grid(row=3, column=7, sticky=W+S)
         # Entry for Telephone Number
         self.e_tele = tk.Entry(self, font=entryfont)
         self.e_tele.grid(row=4, column=7, columnspan=4, sticky=E+W)
         # Label for Street Address 1
-        self.l_stradd1 = tk.Label(self, text="Street Address 1", font=font9)
+        self.l_stradd1 = tk.Label(self, text="Street Address 1 *", font=font9)
         self.l_stradd1.configure(background='#0066AB', foreground='#ffffff')
         self.l_stradd1.grid(row=5, column=2, sticky=W+S)
         # Entry for Street Address 1
@@ -410,29 +413,33 @@ class PageTwo(tk.Frame):
         # Entry for Street Address Line 2
         self.e_stradd2 = tk.Entry(self, font=entryfont)
         self.e_stradd2.grid(row=8, column=2, columnspan=9, sticky=E+W)
+        # Specification for SAL 2
+        self.l_stradd2spec = tk.Label(self, text="Optional: Apt/Suite/P.O Box", font=specfont)
+        self.l_stradd2spec.configure(background='#0066AB', foreground='#ffffff')
+        self.l_stradd2spec.grid(row=9, column=2, sticky=W+N)
         # Label for City
-        self.l_city = tk.Label(self, text="City", font=font9)
+        self.l_city = tk.Label(self, text="City *", font=font9)
         self.l_city.configure(background='#0066AB', foreground='#ffffff')
         self.l_city.grid(row=9, column=2, sticky=W+S)
         # Entry for City
         self.e_city = tk.Entry(self, font=entryfont)
         self.e_city.grid(row=10, column=2, columnspan=4, sticky=E+W)
         # Label for State
-        self.l_state = tk.Label(self, text="State", font=font9)
+        self.l_state = tk.Label(self, text="State *", font=font9)
         self.l_state.configure(background='#0066AB', foreground='#ffffff')
         self.l_state.grid(row=9, column=7, sticky=W+S)
         # Combo Box for State
         self.c_state = ttk.Combobox(self, values=self.state_list, font=entryfont)
         self.c_state.grid(row=10, column=7, columnspan=4, sticky=E+W)
         # Label for Zip Code
-        self.l_zip = tk.Label(self, text="Postal Code", font=font9)
+        self.l_zip = tk.Label(self, text="Postal Code *", font=font9)
         self.l_zip.configure(background='#0066AB', foreground='#ffffff')
         self.l_zip.grid(row=11, column=2, sticky=W+S)
         # Entry for Zip Code
         self.e_zip = tk.Entry(self, font=entryfont)
         self.e_zip.grid(row=12, column=2, columnspan=4, sticky=E+W)
         # Label for Country
-        self.l_country = tk.Label(self, text="Country", font=font9)
+        self.l_country = tk.Label(self, text="Country *", font=font9)
         self.l_country.configure(background='#0066AB', foreground='#ffffff')
         self.l_country.grid(row=11, column=7, sticky=W+S)
         # Combobox for Country
