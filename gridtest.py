@@ -138,7 +138,7 @@ class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.rowconfigure(0, minsize=60, weight=0)
-        self.rowconfigure(1, minsize=60, weight=1)
+        self.rowconfigure(1, minsize=100, weight=1)
         self.rowconfigure(2, minsize=30, weight=0)
         self.rowconfigure(3, minsize=30, weight=1)
         self.rowconfigure(4, minsize=30, weight=1)
@@ -278,7 +278,7 @@ class PageTwo(tk.Frame):
         specfont = "-family Arial -size 15 -weight bold -slant roman " \
                 "-underline 0 -overstrike 0"
         self.rowconfigure(0, minsize=60, weight=0)
-        self.rowconfigure(1, minsize=60, weight=1)
+        self.rowconfigure(1, minsize=10, weight=1)
         self.rowconfigure(2, minsize=30, weight=0)
         self.rowconfigure(3, minsize=30, weight=1)
         self.rowconfigure(4, minsize=30, weight=0)
@@ -286,12 +286,11 @@ class PageTwo(tk.Frame):
         self.rowconfigure(6, minsize=30, weight=0)
         self.rowconfigure(7, minsize=60, weight=1)
         self.rowconfigure(8, minsize=30, weight=0)
-        self.rowconfigure(9, minsize=90, weight=1)
+        self.rowconfigure(9, minsize=70, weight=1)
         self.rowconfigure(10, minsize=30, weight=0)
         self.rowconfigure(11, minsize=60, weight=1)
         self.rowconfigure(12, minsize=30, weight=0)
         self.rowconfigure(13, minsize=60, weight=1)
-
         self.columnconfigure(0, minsize=60, weight=1)
         self.columnconfigure(1, minsize=60, weight=1)
         self.columnconfigure(2, minsize=60, weight=1)
