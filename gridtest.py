@@ -22,7 +22,7 @@ class SeaofBTCapp(tk.Tk):
 
         self.frames = {}
 
-        for F in (StartPage, PageOne, PageTwo, PaymentPage):
+        for F in (StartPage, PageOne, PageTwo, PaymentPage, PaymentInfo):
 
             frame = F(container, self)
 
@@ -447,9 +447,113 @@ class PageTwo(tk.Frame):
 
 
 class PaymentPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
+                     "-underline 0 -overstrike 0"
+        sycfont = "-family Arial -size 50 -weight bold -slant roman " \
+                     "-underline 0 -overstrike 0"
+        self.rowconfigure(0, minsize=60, weight=1)
+        self.rowconfigure(1, minsize=10, weight=1)
+        self.rowconfigure(2, minsize=30, weight=0)
+        self.rowconfigure(3, minsize=30, weight=1)
+        self.rowconfigure(4, minsize=30, weight=0)
+        self.rowconfigure(5, minsize=30, weight=1)
+        self.rowconfigure(6, minsize=30, weight=0)
+        self.rowconfigure(7, minsize=60, weight=1)
+        self.rowconfigure(8, minsize=30, weight=0)
+        self.rowconfigure(9, minsize=70, weight=1)
+        self.rowconfigure(10, minsize=30, weight=0)
+        self.rowconfigure(11, minsize=60, weight=1)
+        self.rowconfigure(12, minsize=30, weight=0)
+        self.rowconfigure(13, minsize=60, weight=1)
+        self.columnconfigure(0, minsize=60, weight=1)
+        self.columnconfigure(1, minsize=60, weight=1)
+        self.columnconfigure(2, minsize=60, weight=1)
+        self.columnconfigure(3, minsize=60, weight=1)
+        self.columnconfigure(4, minsize=60, weight=1)
+        self.columnconfigure(5, minsize=30, weight=1)
+        self.columnconfigure(6, minsize=60, weight=1)
+        self.columnconfigure(7, minsize=60, weight=1)
+        self.columnconfigure(8, minsize=60, weight=1)
+        self.columnconfigure(9, minsize=60, weight=1)
+        self.columnconfigure(10, minsize=60, weight=1)
+        self.columnconfigure(11, minsize=60, weight=1)
+
+        fbutton = tk.Button(self, text="Filler Button")
+        fbutton.grid(row=0, column=1, sticky=N+E+S+W)
+        button2 = tk.Button(self, text="Filler Button")
+        button2.grid(row=0, column=2, sticky=N+E+S+W)
+        button3 = tk.Button(self, text="Filler Button")
+        button3.grid(row=0, column=3, sticky=N+E+S+W)
+        button4 = tk.Button(self, text="Filler Button")
+        button4.grid(row=0, column=4, sticky=N+E+S+W)
+        button5 = tk.Button(self, text="Filler Button")
+        button5.grid(row=0, column=5, sticky=N+E+S+W)
+        button6 = tk.Button(self, text="Filler Button")
+        button6.grid(row=0, column=6, sticky=N+E+S+W)
+        button7 = tk.Button(self, text="Filler Button")
+        button7.grid(row=0, column=7, sticky=N+E+S+W)
+        button8 = tk.Button(self, text="Filler Button")
+        button8.grid(row=0, column=8, sticky=N+E+S+W)
+        button9 = tk.Button(self, text="Filler Button")
+        button9.grid(row=0, column=9, sticky=N+E+S+W)
+        button10 = tk.Button(self, text="Filler Button")
+        button10.grid(row=0, column=10, sticky=N+E+S+W)
+        missedbutton = tk.Button(self, text="FillerButton")
+        missedbutton.grid(row=0, column=0, sticky=N+E+S+W)
+        bc11 = tk.Button(self, text="Filler Button")
+        bc11.grid(row=0, column=11, sticky=N+E+S+W)
+        bc12 = tk.Button(self, text="Filler Button")
+        bc12.grid(row=0, column=12, sticky=N+E+S+W)
+        button11 = tk.Button(self, text="Filler Button")
+        button11.grid(row=1, column=0, sticky=N+E+S+W)
+        button13 = tk.Button(self, text="Filler Button")
+        button13.grid(row=2, column=0, sticky=N+E+S+W)
+        button14 = tk.Button(self, text="Filler Button")
+        button14.grid(row=3, column=0, sticky=N+E+S+W)
+        button15 = tk.Button(self, text="Filler Button")
+        button15.grid(row=4, column=0, sticky=N+E+S+W)
+        button16 = tk.Button(self, text="Filler Button")
+        button16.grid(row=5, column=0, sticky=N+E+S+W)
+        button17 = tk.Button(self, text="Filler Button")
+        button17.grid(row=6, column=0, sticky=N+E+S+W)
+        button18 = tk.Button(self, text="Filler Button")
+        button18.grid(row=7, column=0, sticky=N+E+S+W)
+        button19 = tk.Button(self, text="Filler Button")
+        button19.grid(row=8, column=0, sticky=N+E+S+W)
+        button20 = tk.Button(self, text="Filler Button")
+        button20.grid(row=9, column=0, sticky=N+E+S+W)
+        button21 = tk.Button(self, text="Filler Button")
+        button21.grid(row=10, column=0, sticky=N+E+S+W)
+        b11 = tk.Button(self, text="Filler Button")
+        b11.grid(row=11, column=0, sticky=N+E+S+W)
+        b12 = tk.Button(self, text="Filler Button")
+        b12.grid(row=12, column=0, sticky=N+E+S+W)
+        b13 = tk.Button(self, text="Filler Button")
+        b13.grid(row=13, column=0, sticky=N+E+S+W)
+
+        self.l_swipe = tk.Label(self, text="Swipe Your Card", font=sycfont)
+        self.l_swipe.configure(background="#0066AB", foreground="#ffffff")
+        self.l_swipe.grid(row=6, column=4, columnspan=5, sticky=E+W)
+
+        button1 = tk.Button(self, text="Start Over")
+        button1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                          borderwidth=2)
+        button1.configure(height=3, width=20)
+        button1.grid(row=0, column=0, sticky=N+E+W)
+        # Next Page Button
+        btn_Next1 = tk.Button(self, text="Next",
+                              command=lambda: controller.show_frame(PaymentInfo))
+        btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                            relief=SUNKEN)
+        btn_Next1.configure(height=3, width=20)
+        btn_Next1.grid(row=13, column=12, sticky=S+E+W)
+
+
+class PaymentInfo(tk.Frame):
 
     def __init__(self, parent, controller):
-
         # State List for Combobox
         self.state_list = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
                            "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
@@ -614,10 +718,17 @@ class PaymentPage(tk.Frame):
         self.l_ccn.configure(background='#0066AB', foreground='#ffffff')
         self.l_ccn.grid(row=5, column=2, sticky=W+S)
         # Entry for Credit Card Number
-        self.e_stradd1 = tk.Entry(self, font=entryfont)
-        self.e_stradd1.grid(row=6, column=2, columnspan=9, sticky=E+W)
+        self.e_ccn = tk.Entry(self, font=entryfont)
+        self.e_ccn.grid(row=6, column=2, columnspan=4, sticky=E+W)
         # Label for Security Code
-        self.l_stradd2 = tk.Label(self, text="Street Address Line 2", font=font9)
+        self.l_ccs = tk.Label(self, text="Security Code", font=font9)
+        self.l_ccs.configure(background='#0066AB', foreground='#ffffff')
+        self.l_ccs.grid(row=5, column=7, sticky=W+S)
+        # Entry for Security Code
+        self.e_ccs = tk.Entry(self, font=entryfont)
+        self.e_ccs.grid(row=6, column=7, sticky=E+W)
+        # Label for Expiration Date
+        self.l_stradd2 = tk.Label(self, text="Expiration Date", font=font9)
         self.l_stradd2.configure(background='#0066AB', foreground='#ffffff')
         self.l_stradd2.grid(row=7, column=2, sticky=W+S)
         # Entry for Street Address Line 2
