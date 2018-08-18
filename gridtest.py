@@ -103,7 +103,7 @@ class StartPage(tk.Frame):
         l_sec.configure(foreground="#ffffff")
         l_sec.grid(row=3, column=5, sticky=N+E+W)
         # Entry for Security Code
-        self.e_sec = tk.Entry(self, font=font9)
+        self.e_sec = tk.Entry(self, font=font9, textvariable=controller.info['sec'])
         self.e_sec.grid(row=4, column=4, columnspan=3, sticky=E+W)
         # Label for CSEC
         l_csec = tk.Label(self, text="Confirm Envelope Security Code", font=font9)
@@ -111,7 +111,7 @@ class StartPage(tk.Frame):
         l_csec.configure(bg='#0066AB')
         l_csec.grid(row=6, column=5, sticky=N+E+W)
         # Entry for Confirm Security Code
-        self.e_csec = tk.Entry(self, font=font9)
+        self.e_csec = tk.Entry(self, font=font9, textvariable=controller.info['csec'])
         self.e_csec.grid(row=7, column=4, columnspan=3, sticky=E+W)
         # Start Over Button
         button1 = tk.Button(self, text="Start Over")
@@ -181,50 +181,57 @@ class PageOne(tk.Frame):
                 "-underline 0 -overstrike 0"
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
                      "-underline 0 -overstrike 0"
-        fbutton = tk.Button(self, text="Filler Button")
-        fbutton.grid(row=0, column=1, sticky=N + E + S + W)
-        button2 = tk.Button(self, text="Filler Button")
-        button2.grid(row=0, column=2, sticky=N + E + S + W)
-        button3 = tk.Button(self, text="Filler Button")
-        button3.grid(row=0, column=3, sticky=N + E + S + W)
-        button4 = tk.Button(self, text="Filler Button")
-        button4.grid(row=0, column=4, sticky=N + E + S + W)
-        button5 = tk.Button(self, text="Filler Button")
-        button5.grid(row=0, column=5, sticky=N + E + S + W)
-        button6 = tk.Button(self, text="Filler Button")
-        button6.grid(row=0, column=6, sticky=N + E + S + W)
-        button7 = tk.Button(self, text="Filler Button")
-        button7.grid(row=0, column=7, sticky=N + E + S + W)
-        button8 = tk.Button(self, text="Filler Button")
-        button8.grid(row=0, column=8, sticky=N + E + S + W)
-        button9 = tk.Button(self, text="Filler Button")
-        button9.grid(row=0, column=9, sticky=N + E + S + W)
-        button10 = tk.Button(self, text="Filler Button")
-        button10.grid(row=0, column=10, sticky=N + E + S + W)
-        missedbutton = tk.Button(self, text="FillerButton")
-        missedbutton.grid(row=0, column=0, sticky=N + E + S + W)
-        button11 = tk.Button(self, text="Filler Button")
-        button11.grid(row=1, column=0, sticky=N + E + S + W)
-        button13 = tk.Button(self, text="Filler Button")
-        button13.grid(row=2, column=0, sticky=N + E + S + W)
-        button14 = tk.Button(self, text="Filler Button")
-        button14.grid(row=3, column=0, sticky=N + E + S + W)
-        button15 = tk.Button(self, text="Filler Button")
-        button15.grid(row=4, column=0, sticky=N + E + S + W)
-        button16 = tk.Button(self, text="Filler Button")
-        button16.grid(row=5, column=0, sticky=N + E + S + W)
-        button17 = tk.Button(self, text="Filler Button")
-        button17.grid(row=6, column=0, sticky=N + E + S + W)
-        button18 = tk.Button(self, text="Filler Button")
-        button18.grid(row=7, column=0, sticky=N + E + S + W)
-        button19 = tk.Button(self, text="Filler Button")
-        button19.grid(row=8, column=0, sticky=N + E + S + W)
-        button20 = tk.Button(self, text="Filler Button")
-        button20.grid(row=9, column=0, sticky=N + E + S + W)
-        button21 = tk.Button(self, text="Filler Button")
-        button21.grid(row=10, column=0, sticky=N + E + S + W)
+        # fbutton = tk.Button(self, text="Filler Button")
+        # fbutton.grid(row=0, column=1, sticky=N + E + S + W)
+        # button2 = tk.Button(self, text="Filler Button")
+        # button2.grid(row=0, column=2, sticky=N + E + S + W)
+        # button3 = tk.Button(self, text="Filler Button")
+        # button3.grid(row=0, column=3, sticky=N + E + S + W)
+        # button4 = tk.Button(self, text="Filler Button")
+        # button4.grid(row=0, column=4, sticky=N + E + S + W)
+        # button5 = tk.Button(self, text="Filler Button")
+        # button5.grid(row=0, column=5, sticky=N + E + S + W)
+        # button6 = tk.Button(self, text="Filler Button")
+        # button6.grid(row=0, column=6, sticky=N + E + S + W)
+        # button7 = tk.Button(self, text="Filler Button")
+        # button7.grid(row=0, column=7, sticky=N + E + S + W)
+        # button8 = tk.Button(self, text="Filler Button")
+        # button8.grid(row=0, column=8, sticky=N + E + S + W)
+        # button9 = tk.Button(self, text="Filler Button")
+        # button9.grid(row=0, column=9, sticky=N + E + S + W)
+        # button10 = tk.Button(self, text="Filler Button")
+        # button10.grid(row=0, column=10, sticky=N + E + S + W)
+        # missedbutton = tk.Button(self, text="FillerButton")
+        # missedbutton.grid(row=0, column=0, sticky=N + E + S + W)
+        # button11 = tk.Button(self, text="Filler Button")
+        # button11.grid(row=1, column=0, sticky=N + E + S + W)
+        # button13 = tk.Button(self, text="Filler Button")
+        # button13.grid(row=2, column=0, sticky=N + E + S + W)
+        # button14 = tk.Button(self, text="Filler Button")
+        # button14.grid(row=3, column=0, sticky=N + E + S + W)
+        # button15 = tk.Button(self, text="Filler Button")
+        # button15.grid(row=4, column=0, sticky=N + E + S + W)
+        # button16 = tk.Button(self, text="Filler Button")
+        # button16.grid(row=5, column=0, sticky=N + E + S + W)
+        # button17 = tk.Button(self, text="Filler Button")
+        # button17.grid(row=6, column=0, sticky=N + E + S + W)
+        # button18 = tk.Button(self, text="Filler Button")
+        # button18.grid(row=7, column=0, sticky=N + E + S + W)
+        # button19 = tk.Button(self, text="Filler Button")
+        # button19.grid(row=8, column=0, sticky=N + E + S + W)
+        # button20 = tk.Button(self, text="Filler Button")
+        # button20.grid(row=9, column=0, sticky=N + E + S + W)
+        # button21 = tk.Button(self, text="Filler Button")
+        # button21.grid(row=10, column=0, sticky=N + E + S + W)
 
-        self.btn_haz = tk.Button(self, text="button text")
+        btn_back = tk.Button(self, text="Back",
+                            command=lambda: controller.show_frame(StartPage))
+        btn_back.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                          borderwidth=2)
+        btn_back.configure(height=3, width=14)
+        btn_back.grid(row=10, column=0, sticky=S+E+W)
+
+        self.btn_haz = tk.Button(self, text="button text", command=lambda: self.haz(controller))
         self.btn_haz.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                                borderwidth=2)
         self.btn_haz.grid(row=3, column=2, columnspan=3, rowspan=7, sticky=N + E + S + W)
@@ -236,12 +243,13 @@ class PageOne(tk.Frame):
         self.l_haz.configure(background='#0066AB', foreground='#ffffff')
         self.l_haz.grid(row=2, column=6, sticky=S, columnspan=3)
 
-        self.btn_nonhaz = tk.Button(self, wraplength=100, text="Scissors Tools Knives")
+        self.btn_nonhaz = tk.Button(self, wraplength=100, text="Scissors Tools Knives", command=lambda:
+                                    self.nonhaz(controller))
         self.btn_nonhaz.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                                   borderwidth=2)
         self.btn_nonhaz.grid(row=3, column=6, columnspan=3, rowspan=7, sticky=N + E + S + W)
 
-        btn_so2 = tk.Button(self, text="Start Over")
+        btn_so2 = tk.Button(self, text="Start Over", command=lambda: controller.show_frame(StartPage))
         btn_so2.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                           borderwidth=2)
         btn_so2.configure(height=3, width=14)
@@ -253,6 +261,18 @@ class PageOne(tk.Frame):
                             relief=SUNKEN)
         btn_next2.configure(height=3, width=14)
         btn_next2.grid(row=10, column=10, sticky=S+E+W)
+
+    def haz(self, controller):
+        self.controller.info['itemtype'].set("Hazardous")
+        itemtype = self.controller.info["itemtype"].get()
+        print(itemtype)
+        controller.show_frame(PageTwo)
+
+    def nonhaz(self, controller):
+        self.controller.info['itemtype'].set("Non-Hazardous")
+        itemtype2 = self.controller.info["itemtype"].get()
+        print(itemtype2)
+        controller.show_frame(PageTwo)
 
 
 class PageTwo(tk.Frame):
@@ -339,13 +359,13 @@ class PageTwo(tk.Frame):
         self.columnconfigure(11, minsize=60, weight=1)
 
         # Start Over Button (Page 3)
-        button1 = tk.Button(self, text="Start Over")
+        button1 = tk.Button(self, text="Start Over", command=lambda: controller.show_frame(StartPage))
         button1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                           borderwidth=2)
         button1.configure(height=3, width=20)
         button1.grid(row=0, column=0, sticky=N+E+W)
         # Next Page Button
-        btn_Next1 = tk.Button(self, text="Next", command=self.define(controller))
+        btn_Next1 = tk.Button(self, text="Next", command=lambda: self.define(controller))
         btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
         btn_Next1.configure(height=3, width=20)
@@ -431,8 +451,8 @@ class PageTwo(tk.Frame):
         td3 = self.controller.info["email"].get()
         td4 = self.controller.info["tele"].get()
         td5 = self.controller.info["saddress"].get()
-        # controller.show_frame(PaymentPage)
-        print(td1, td2, td3, td4, td5)
+        if td1 == td1:
+            controller.show_frame(PaymentPage)
 
 
 class PaymentPage(tk.Frame):
