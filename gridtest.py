@@ -17,6 +17,7 @@ class SeaofBTCapp(tk.Tk):
         self.info = {
             "sec": StringVar(),
             "csec": StringVar(),
+            "itemtype": StringVar(),
             "fname": StringVar(),
             "lname": StringVar(),
             "email": StringVar(),
@@ -32,7 +33,6 @@ class SeaofBTCapp(tk.Tk):
                      }
 
         # self.attributes('-fullscreen', True)
-        # eat me beab
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
@@ -127,6 +127,7 @@ class StartPage(tk.Frame):
         btn_Next1.configure(height=3, width=15)
         btn_Next1.grid(row=10, column=9, columnspan=2, sticky=S+E+W)
 
+    # popup box for error code
     def errorsec(self):
         font9 = "-family Arial -size 24 -weight bold -slant roman " \
                 "-underline 0 -overstrike 0"
@@ -240,7 +241,6 @@ class PageOne(tk.Frame):
                                   borderwidth=2)
         self.btn_nonhaz.grid(row=3, column=6, columnspan=3, rowspan=7, sticky=N + E + S + W)
 
-
         btn_so2 = tk.Button(self, text="Start Over")
         btn_so2.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                           borderwidth=2)
@@ -338,59 +338,6 @@ class PageTwo(tk.Frame):
         self.columnconfigure(10, minsize=60, weight=1)
         self.columnconfigure(11, minsize=60, weight=1)
 
-        # fbutton = tk.Button(self, text="Filler Button")
-        # fbutton.grid(row=0, column=1, sticky=N+E+S+W)
-        # button2 = tk.Button(self, text="Filler Button")
-        # button2.grid(row=0, column=2, sticky=N+E+S+W)
-        # button3 = tk.Button(self, text="Filler Button")
-        # button3.grid(row=0, column=3, sticky=N+E+S+W)
-        # button4 = tk.Button(self, text="Filler Button")
-        # button4.grid(row=0, column=4, sticky=N+E+S+W)
-        # button5 = tk.Button(self, text="Filler Button")
-        # button5.grid(row=0, column=5, sticky=N+E+S+W)
-        # button6 = tk.Button(self, text="Filler Button")
-        # button6.grid(row=0, column=6, sticky=N+E+S+W)
-        # button7 = tk.Button(self, text="Filler Button")
-        # button7.grid(row=0, column=7, sticky=N+E+S+W)
-        # button8 = tk.Button(self, text="Filler Button")
-        # button8.grid(row=0, column=8, sticky=N+E+S+W)
-        # button9 = tk.Button(self, text="Filler Button")
-        # button9.grid(row=0, column=9, sticky=N+E+S+W)
-        # button10 = tk.Button(self, text="Filler Button")
-        # button10.grid(row=0, column=10, sticky=N+E+S+W)
-        # missedbutton = tk.Button(self, text="FillerButton")
-        # missedbutton.grid(row=0, column=0, sticky=N+E+S+W)
-        # bc11 = tk.Button(self, text="Filler Button")
-        # bc11.grid(row=0, column=11, sticky=N+E+S+W)
-        # bc12 = tk.Button(self, text="Filler Button")
-        # bc12.grid(row=0, column=12, sticky=N+E+S+W)
-        # button11 = tk.Button(self, text="Filler Button")
-        # button11.grid(row=1, column=0, sticky=N+E+S+W)
-        # button13 = tk.Button(self, text="Filler Button")
-        # button13.grid(row=2, column=0, sticky=N+E+S+W)
-        # button14 = tk.Button(self, text="Filler Button")
-        # button14.grid(row=3, column=0, sticky=N+E+S+W)
-        # button15 = tk.Button(self, text="Filler Button")
-        # button15.grid(row=4, column=0, sticky=N+E+S+W)
-        # button16 = tk.Button(self, text="Filler Button")
-        # button16.grid(row=5, column=0, sticky=N+E+S+W)
-        # button17 = tk.Button(self, text="Filler Button")
-        # button17.grid(row=6, column=0, sticky=N+E+S+W)
-        # button18 = tk.Button(self, text="Filler Button")
-        # button18.grid(row=7, column=0, sticky=N+E+S+W)
-        # button19 = tk.Button(self, text="Filler Button")
-        # button19.grid(row=8, column=0, sticky=N+E+S+W)
-        # button20 = tk.Button(self, text="Filler Button")
-        # button20.grid(row=9, column=0, sticky=N+E+S+W)
-        # button21 = tk.Button(self, text="Filler Button")
-        # button21.grid(row=10, column=0, sticky=N+E+S+W)
-        # b11 = tk.Button(self, text="Filler Button")
-        # b11.grid(row=11, column=0, sticky=N+E+S+W)
-        # b12 = tk.Button(self, text="Filler Button")
-        # b12.grid(row=12, column=0, sticky=N+E+S+W)
-        # b13 = tk.Button(self, text="Filler Button")
-        # b13.grid(row=13, column=0, sticky=N+E+S+W)
-
         # Start Over Button (Page 3)
         button1 = tk.Button(self, text="Start Over")
         button1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
@@ -398,8 +345,7 @@ class PageTwo(tk.Frame):
         button1.configure(height=3, width=20)
         button1.grid(row=0, column=0, sticky=N+E+W)
         # Next Page Button
-        btn_Next1 = tk.Button(self, text="Next",
-                              command=self.testdata)
+        btn_Next1 = tk.Button(self, text="Next", command=self.define(controller))
         btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
         btn_Next1.configure(height=3, width=20)
@@ -479,14 +425,14 @@ class PageTwo(tk.Frame):
         self.c_country = ttk.Combobox(self, values=self.country_list, font=entryfont)
         self.c_country.grid(row=12, column=7, columnspan=4, sticky=E+W)
 
-    def testdata(self):
+    def define(self, controller):
         td1 = self.controller.info["fname"].get()
         td2 = self.controller.info["lname"].get()
         td3 = self.controller.info["email"].get()
         td4 = self.controller.info["tele"].get()
         td5 = self.controller.info["saddress"].get()
+        # controller.show_frame(PaymentPage)
         print(td1, td2, td3, td4, td5)
-
 
 
 class PaymentPage(tk.Frame):
@@ -638,16 +584,15 @@ class PaymentPage(tk.Frame):
 
             for groupNum in range(0, len(match.groups())):
                 groupNum = groupNum + 1
-                self.first_name = match.group(3)
-                self.last_name = match.group(2)
-                self.creditnumber = match.group(1)
-                self.exp = match.group(4)
+                self.controller.info['fname'] = match.group(3)
+                self.controller.info['lname'] = match.group(2)
+                self.controller.info['ccn'] = match.group(1)
+                self.controller.info['exp'] = match.group(4)
 
-            print("First Name:" + " " + self.first_name)
-            print("Last Name:" + " " + self.last_name)
-            print("Card Number:" + " " + self.creditnumber)
-            print("Expiration Date:" + " " + self.exp)
-            self.fnl = self.first_name + " " + self.last_name
+            print("First Name:" + " " + self.controller.info['fname'].get())
+            print("Last Name:" + " " + self.controller.info['lname'].get())
+            print("Card Number:" + " " + self.controller.info['ccn'].get())
+            print("Expiration Date:" + " " + self.controller.info['exp'].get())
 
 
 class PaymentInfo(tk.Frame):
