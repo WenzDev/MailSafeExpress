@@ -534,8 +534,12 @@ class PaymentPage(tk.Frame):
         b13.grid(row=13, column=0, sticky=N+E+S+W)
 
         self.l_swipe = tk.Label(self, text="Swipe Your Card", font=sycfont)
-        self.l_swipe.configure(background="#0066AB", foreground="#ffffff")
+        self.l_swipe.configure(background="#0066AB", foreground="#ffffff", borderwidth=0)
         self.l_swipe.grid(row=6, column=4, columnspan=5, sticky=E+W)
+
+        self.e_ccraw = tk.Entry(self, font=buttonfont)
+        self.e_ccraw.configure(background='#0066AB', foreground='#0066AB')
+        self.e_ccraw.grid(row=7, column=4, columnspan=5, sticky=E+W)
 
         button1 = tk.Button(self, text="Start Over")
         button1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
@@ -549,6 +553,7 @@ class PaymentPage(tk.Frame):
                             relief=SUNKEN)
         btn_Next1.configure(height=3, width=20)
         btn_Next1.grid(row=13, column=12, sticky=S+E+W)
+
 
 
 class PaymentInfo(tk.Frame):
