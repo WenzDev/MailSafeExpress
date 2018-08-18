@@ -14,6 +14,23 @@ class SeaofBTCapp(tk.Tk):
         self.title("Mailsafe Express v1.0")
         self.iconbitmap(default='mseico256.ico')
 
+        self.info = {
+            "sec": StringVar(),
+            "csec": StringVar(),
+            "fname": StringVar(),
+            "lname": StringVar(),
+            "email": StringVar(),
+            "tele": StringVar(),
+            "saddress": StringVar(),
+            "saddress2": StringVar(),
+            "state": StringVar(),
+            "city": StringVar(),
+            "zip": StringVar(),
+            "country": StringVar(),
+            "ccn": StringVar(),
+            "exp": StringVar(),
+                     }
+
         # self.attributes('-fullscreen', True)
 
         container.pack(side="top", fill="both", expand=True)
@@ -43,6 +60,7 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.controller = controller
         self.match = False
         self.securitycode = None
         self.csecuritycode = None
@@ -103,7 +121,7 @@ class StartPage(tk.Frame):
         button1.grid(row=0, column=0, columnspan=2, sticky=N+E+W)
         # Next Page Button
         btn_Next1 = tk.Button(self, text="Next",
-                              command=lambda: controller.show_frame(PageOne))
+                              command=lambda: self.check_sec(controller))
         btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
         btn_Next1.configure(height=3, width=15)
@@ -121,13 +139,10 @@ class StartPage(tk.Frame):
         btn_close = tk.Button(popup, text="Okay", command=popup.destroy)
         btn_close.pack()
 
-
     def check_sec(self, controller):
         if self.e_sec.get() == self.e_csec.get():
             print("Success! Your envelope security code is:" + " " + self.e_sec.get())
-            l_command = lambda: controller.show_frame(StartPage)
-            l_command()
-            self.match = True
+            controller.show_frame(PageOne)
         else:
             self.errorsec()
             print("Error: Type that again!")
@@ -137,14 +152,16 @@ class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.itemtype = None
         self.rowconfigure(0, minsize=60, weight=0)
-        self.rowconfigure(1, minsize=100, weight=1)
-        self.rowconfigure(2, minsize=30, weight=0)
+        self.rowconfigure(1, minsize=30, weight=1)
+        self.rowconfigure(2, minsize=30, weight=1)
         self.rowconfigure(3, minsize=30, weight=1)
         self.rowconfigure(4, minsize=30, weight=1)
-        self.rowconfigure(5, minsize=60, weight=1)
-        self.rowconfigure(6, minsize=30, weight=0)
-        self.rowconfigure(7, minsize=30, weight=0)
+        self.rowconfigure(5, minsize=60, weight=0)
+        self.rowconfigure(6, minsize=30, weight=1)
+        self.rowconfigure(7, minsize=30, weight=1)
         self.rowconfigure(8, minsize=30, weight=1)
         self.rowconfigure(9, minsize=60, weight=1)
         self.rowconfigure(10, minsize=60, weight=1)
@@ -153,14 +170,13 @@ class PageOne(tk.Frame):
         self.columnconfigure(2, minsize=60, weight=1)
         self.columnconfigure(3, minsize=60, weight=1)
         self.columnconfigure(4, minsize=60, weight=1)
-        self.columnconfigure(5, minsize=30, weight=0)
-        self.columnconfigure(6, minsize=60, weight=1)
-        self.columnconfigure(7, minsize=60, weight=1)
-        self.columnconfigure(8, minsize=60, weight=1)
+        self.columnconfigure(5, minsize=60, weight=1)
+        self.columnconfigure(6, minsize=30, weight=1)
+        self.columnconfigure(7, minsize=30, weight=1)
+        self.columnconfigure(8, minsize=30, weight=1)
         self.columnconfigure(9, minsize=60, weight=1)
         self.columnconfigure(10, minsize=60, weight=1)
-
-        font9 = "-family Arial -size 12 -weight bold -slant roman " \
+        font9 = "-family Arial -size 50 -weight bold -slant roman " \
                 "-underline 0 -overstrike 0"
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
                      "-underline 0 -overstrike 0"
@@ -207,6 +223,24 @@ class PageOne(tk.Frame):
         button21 = tk.Button(self, text="Filler Button")
         button21.grid(row=10, column=0, sticky=N + E + S + W)
 
+        self.btn_haz = tk.Button(self, text="button text")
+        self.btn_haz.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                               borderwidth=2)
+        self.btn_haz.grid(row=3, column=2, columnspan=3, rowspan=7, sticky=N + E + S + W)
+        self.l_haz = tk.Label(self, text="    Hazardous    ", font=font9)
+        self.l_haz.configure(background='#0066AB', foreground='#ffffff')
+        self.l_haz.grid(row=2, column=2, sticky=E + S + W, columnspan=3)
+
+        self.l_haz = tk.Label(self, text="Non-Hazardous", font=font9)
+        self.l_haz.configure(background='#0066AB', foreground='#ffffff')
+        self.l_haz.grid(row=2, column=6, sticky=S, columnspan=3)
+
+        self.btn_nonhaz = tk.Button(self, wraplength=100, text="Scissors Tools Knives")
+        self.btn_nonhaz.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                                  borderwidth=2)
+        self.btn_nonhaz.grid(row=3, column=6, columnspan=3, rowspan=7, sticky=N + E + S + W)
+
+
         btn_so2 = tk.Button(self, text="Start Over")
         btn_so2.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                           borderwidth=2)
@@ -224,7 +258,7 @@ class PageOne(tk.Frame):
 class PageTwo(tk.Frame):
 
     def __init__(self, parent, controller):
-
+        self.controller = controller
         # State List for Combobox
         self.state_list = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
                            "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
@@ -365,7 +399,7 @@ class PageTwo(tk.Frame):
         button1.grid(row=0, column=0, sticky=N+E+W)
         # Next Page Button
         btn_Next1 = tk.Button(self, text="Next",
-                              command=lambda: controller.show_frame(PaymentPage))
+                              command=self.testdata)
         btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
         btn_Next1.configure(height=3, width=20)
@@ -375,42 +409,42 @@ class PageTwo(tk.Frame):
         l_fname.configure(background='#0066AB', foreground='#ffffff')
         l_fname.grid(row=1, column=2, sticky=W+S)
         # Entry for First Name
-        self.e_fname = tk.Entry(self, font=entryfont)
+        self.e_fname = tk.Entry(self, font=entryfont, textvariable=controller.info['fname'])
         self.e_fname.grid(row=2, column=2, columnspan=4, sticky=E+W)
         # Label for First Name
         l_lname = tk.Label(self, text="Last Name *", font=font9)
         l_lname.configure(background='#0066AB', foreground='#ffffff')
         l_lname.grid(row=1, column=7, sticky=W+S)
         # Entry for Last Name
-        self.e_lname = tk.Entry(self, font=entryfont)
+        self.e_lname = tk.Entry(self, font=entryfont, textvariable=controller.info['lname'])
         self.e_lname.grid(row=2, column=7, columnspan=4, sticky=E+W)
         # Label for Email
         self.l_email = tk.Label(self, text="Email Address *", font=font9)
         self.l_email.configure(background='#0066AB', foreground='#ffffff')
         self.l_email.grid(row=3, column=2, sticky=W+S)
         # Entry for Email
-        self.e_mail = tk.Entry(self, font=entryfont)
+        self.e_mail = tk.Entry(self, font=entryfont, textvariable=controller.info['email'])
         self.e_mail.grid(row=4, column=2, columnspan=4, sticky=E+W)
         # Label for Telephone Number
         self.l_tele = tk.Label(self, text="Telephone Number *", font=font9)
         self.l_tele.configure(background='#0066AB', foreground='#ffffff')
         self.l_tele.grid(row=3, column=7, sticky=W+S)
         # Entry for Telephone Number
-        self.e_tele = tk.Entry(self, font=entryfont)
+        self.e_tele = tk.Entry(self, font=entryfont, textvariable=controller.info['tele'])
         self.e_tele.grid(row=4, column=7, columnspan=4, sticky=E+W)
         # Label for Street Address 1
         self.l_stradd1 = tk.Label(self, text="Street Address 1 *", font=font9)
         self.l_stradd1.configure(background='#0066AB', foreground='#ffffff')
         self.l_stradd1.grid(row=5, column=2, sticky=W+S)
         # Entry for Street Address 1
-        self.e_stradd1 = tk.Entry(self, font=entryfont)
+        self.e_stradd1 = tk.Entry(self, font=entryfont, textvariable=controller.info['saddress'])
         self.e_stradd1.grid(row=6, column=2, columnspan=9, sticky=E+W)
         # Label for Street Address Line 2
         self.l_stradd2 = tk.Label(self, text="Street Address Line 2", font=font9)
         self.l_stradd2.configure(background='#0066AB', foreground='#ffffff')
         self.l_stradd2.grid(row=7, column=2, sticky=W+S)
         # Entry for Street Address Line 2
-        self.e_stradd2 = tk.Entry(self, font=entryfont)
+        self.e_stradd2 = tk.Entry(self, font=entryfont, textvariable=controller.info['saddress2'])
         self.e_stradd2.grid(row=8, column=2, columnspan=9, sticky=E+W)
         # Specification for SAL 2
         self.l_stradd2spec = tk.Label(self, text="Optional: Apt/Suite/P.O Box", font=specfont)
@@ -421,7 +455,7 @@ class PageTwo(tk.Frame):
         self.l_city.configure(background='#0066AB', foreground='#ffffff')
         self.l_city.grid(row=9, column=2, sticky=W+S)
         # Entry for City
-        self.e_city = tk.Entry(self, font=entryfont)
+        self.e_city = tk.Entry(self, font=entryfont, textvariable=controller.info['city'])
         self.e_city.grid(row=10, column=2, columnspan=4, sticky=E+W)
         # Label for State
         self.l_state = tk.Label(self, text="State *", font=font9)
@@ -445,10 +479,41 @@ class PageTwo(tk.Frame):
         self.c_country = ttk.Combobox(self, values=self.country_list, font=entryfont)
         self.c_country.grid(row=12, column=7, columnspan=4, sticky=E+W)
 
+    def testdata(self):
+        td1 = self.controller.info["fname"].get()
+        td2 = self.controller.info["lname"].get()
+        td3 = self.controller.info["email"].get()
+        td4 = self.controller.info["tele"].get()
+        td5 = self.controller.info["saddress"].get()
+        print(td1, td2, td3, td4, td5)
+
+
 
 class PaymentPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.first_name = None
+        # last name
+        self.last_name = None
+        # CC number
+        self.creditnumber = None
+        # group of First and Last
+        self.fnl = None
+        # CC exp date
+        self.exp = None
+        # match to get cc #
+        self.m_cc = None
+        # compiled exp for pulling the exp
+        self.p_exp = None
+        # match exp
+        self.matches = None
+        # pattern
+        self.pat = None
+        # match
+        self.match = None
+        self.digits = None
+        self.raw = None
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
                      "-underline 0 -overstrike 0"
         sycfont = "-family Arial -size 50 -weight bold -slant roman " \
@@ -538,7 +603,8 @@ class PaymentPage(tk.Frame):
         self.l_swipe.grid(row=6, column=4, columnspan=5, sticky=E+W)
 
         self.e_ccraw = tk.Entry(self, font=buttonfont)
-        self.e_ccraw.configure(background='#0066AB', foreground='#0066AB')
+        self.e_ccraw.focus()
+        self.e_ccraw.configure(background='#0066AB', foreground='#0066AB', relief=FLAT)
         self.e_ccraw.grid(row=7, column=4, columnspan=5, sticky=E+W)
 
         button1 = tk.Button(self, text="Start Over")
@@ -548,60 +614,45 @@ class PaymentPage(tk.Frame):
         button1.grid(row=0, column=0, sticky=N+E+W)
         # Next Page Button
         btn_Next1 = tk.Button(self, text="Next",
-                              command=lambda: controller.show_frame(PaymentInfo))
+                              command=lambda: self.senddata())
         btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
         btn_Next1.configure(height=3, width=20)
         btn_Next1.grid(row=13, column=12, sticky=S+E+W)
 
+    def senddata(self):
+        self.raw = self.e_ccraw.get()
+        print(self.raw)
+        if "%E?;E?" in self.raw:
+            print("Error! Swipe again")
+        else:
+            print("Processing")
+
+        regex = r"^%B(?P<nr>[^^]+)\^(?P<fname>[^/]+)/(?P<lname>[^^]+)\^(\d{4})[^^]"
+        # find the matches
+
+        matches = re.finditer(regex, self.raw, re.MULTILINE)
+
+        for matchNum, match in enumerate(matches):
+            matchNum = matchNum + 1
+
+            for groupNum in range(0, len(match.groups())):
+                groupNum = groupNum + 1
+                self.first_name = match.group(3)
+                self.last_name = match.group(2)
+                self.creditnumber = match.group(1)
+                self.exp = match.group(4)
+
+            print("First Name:" + " " + self.first_name)
+            print("Last Name:" + " " + self.last_name)
+            print("Card Number:" + " " + self.creditnumber)
+            print("Expiration Date:" + " " + self.exp)
+            self.fnl = self.first_name + " " + self.last_name
 
 
 class PaymentInfo(tk.Frame):
-
     def __init__(self, parent, controller):
-        # State List for Combobox
-        self.state_list = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
-                           "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
-                           "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
-                           "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
-                           "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
-                           "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas",
-                           "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
-        # Country List for ComboBox
-        self.country_list = ["United States", "Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
-                             "Antigua & Deps", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
-                             "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize",
-                             "Benin", "Bhutan", "Bolivia", "Bosnia Herzegovina", "Botswana", "Brazil", "Brunei",
-                             "Bulgaria", "Burkina", "Burma", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde",
-                             "Central African Rep", "Chad", "Chile", "People's Republic of China", "Republic of China",
-                             "Colombia", "Comoros", "Democratic Republic of the Congo", "Republic of the Congo",
-                             "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Danzig", "Denmark",
-                             "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt",
-                             "El Salvador", "Equatorial Guinea", "Eritrea  ", "Estonia", "Ethiopia", "Fiji",
-                             "Finland", "France", "Gabon", "Gaza Strip", "The Gambia", "Georgia", "Germany",
-                             "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
-                             "Haiti", "Holy Roman Empire", "Honduras", "Hungary", "Iceland", "India", "Indonesia",
-                             "Iran", "Iraq", "Republic of Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica",
-                             "Japan", "Jonathanland", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "North Korea",
-                             "South Korea", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho",
-                             "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar",
-                             "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands",
-                             "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco",
-                             "Mongolia", "Montenegro", "Morocco", "Mount Athos", "Mozambique", "Namibia",
-                             "Nauru", "Nepal", "Newfoundland", "Netherlands", "New Zealand", "Nicaragua",
-                             "Niger", "Nigeria", "Norway", "Oman", "Ottoman Empire", "Pakistan", "Palau",
-                             "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland",
-                             "Portugal", "Prussia", "Qatar", "Romania", "Rome", "Russian Federation",
-                             "Rwanda", "St Kitts & Nevis", "St Lucia", "Saint Vincent & the, Grenadines",
-                             "Samoa", "San Marino", "Sao Tome & Principe", "Saudi Arabia", "Senegal",
-                             "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
-                             "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan",
-                             "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Tajikistan",
-                             "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad & Tobago", "Tunisia",
-                             "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates",
-                             "United Kingdom", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela",
-                             "Vietnam", "Yemen", "Zambia", "Zimbabwe"]
-
+        self.controller = controller
         tk.Frame.__init__(self, parent)
         font9 = "-family Arial -size 24 -weight bold -slant roman " \
                 "-underline 0 -overstrike 0"
@@ -709,7 +760,7 @@ class PaymentInfo(tk.Frame):
         self.l_fname2.configure(background='#0066AB', foreground='#ffffff')
         self.l_fname2.grid(row=3, column=2, sticky=W+S)
         # Entry for First Name
-        self.e_fname2 = tk.Entry(self, font=entryfont)
+        self.e_fname2 = tk.Entry(self, font=entryfont, textvariable=self.controller.info['fname'])
         self.e_fname2.grid(row=4, column=2, columnspan=4, sticky=E+W)
         # Label for Last Name
         self.l_lname2 = tk.Label(self, text="Last Name *", font=font9)
