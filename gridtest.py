@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-
+import stripe
+# Visa Mastercard American Express Discover JCB Diners Club credit and debit cards.
+stripe.api_key = "sk_test_gC3XXUojw3qTRewhzCK3SlV6"
 LARGE_FONT = ("Verdana", 12)
 
 
@@ -12,7 +14,7 @@ class SeaofBTCapp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
         self.title("Mailsafe Express v1.0")
-        self.iconbitmap(default='mseico256.ico')
+        # self.iconbitmap(default='mseico256.ico')
 
         self.info = {
             "sec": StringVar(),
@@ -91,11 +93,11 @@ class StartPage(tk.Frame):
         self.columnconfigure(8, minsize=60, weight=1)
         self.columnconfigure(9, minsize=60, weight=1)
         self.columnconfigure(10, minsize=60, weight=1)
-        image = PhotoImage(file="msecrop.png")
-        l_MSEL = tk.Label(self, image=image)
-        l_MSEL.configure(background='#0066AB', borderwidth=0)
-        l_MSEL.photo = image
-        l_MSEL.grid(row=0, column=5, rowspan=3, sticky=N+E+S+W)
+        # image = PhotoImage(file="msecrop.png")
+        # l_MSEL = tk.Label(self, image=image)
+        # l_MSEL.configure(background='#0066AB', borderwidth=0)
+        # l_MSEL.photo = image
+        # l_MSEL.grid(row=0, column=5, rowspan=3, sticky=N+E+S+W)
 
         # Label for ESC
         l_sec = tk.Label(self, text="Envelope Security Code", font=font9)
@@ -181,7 +183,7 @@ class PageOne(tk.Frame):
                 "-underline 0 -overstrike 0"
         buttonfont = "-family Arial -size 16 -weight bold -slant roman " \
                      "-underline 0 -overstrike 0"
-        # fbutton = tk.Button(self, text="Filler Button")
+        # fbutton = tk.Button(self, text="Filler Button") Test
         # fbutton.grid(row=0, column=1, sticky=N + E + S + W)
         # button2 = tk.Button(self, text="Filler Button")
         # button2.grid(row=0, column=2, sticky=N + E + S + W)
@@ -358,6 +360,13 @@ class PageTwo(tk.Frame):
         self.columnconfigure(10, minsize=60, weight=1)
         self.columnconfigure(11, minsize=60, weight=1)
 
+        btn_ba2 = tk.Button(self, text="Back",
+                            command=lambda: controller.show_frame(PageOne))
+        btn_ba2.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
+                          borderwidth=2)
+        btn_ba2.configure(height=3, width=14)
+        btn_ba2.grid(row=13, column=0, sticky=S + E + W)
+
         # Start Over Button (Page 3)
         button1 = tk.Button(self, text="Start Over", command=lambda: controller.show_frame(StartPage))
         button1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
@@ -435,7 +444,7 @@ class PageTwo(tk.Frame):
         self.l_zip.configure(background='#0066AB', foreground='#ffffff')
         self.l_zip.grid(row=11, column=2, sticky=W+S)
         # Entry for Zip Code
-        self.e_zip = tk.Entry(self, font=entryfont)
+        self.e_zip = tk.Entry(self, font=entryfont, textvariable=controller.info['zip'])
         self.e_zip.grid(row=12, column=2, columnspan=4, sticky=E+W)
         # Label for Country
         self.l_country = tk.Label(self, text="Country *", font=font9)
@@ -446,13 +455,50 @@ class PageTwo(tk.Frame):
         self.c_country.grid(row=12, column=7, columnspan=4, sticky=E+W)
 
     def define(self, controller):
-        td1 = self.controller.info["fname"].get()
-        td2 = self.controller.info["lname"].get()
-        td3 = self.controller.info["email"].get()
-        td4 = self.controller.info["tele"].get()
-        td5 = self.controller.info["saddress"].get()
-        if td1 == td1:
-            controller.show_frame(PaymentPage)
+        fname = self.controller.info["fname"].get()
+        lname = self.controller.info["lname"].get()
+        email = self.controller.info["email"].get()
+        tele = self.controller.info["tele"].get()
+        saddress = self.controller.info["saddress"].get()
+        saddress2 = self.controller.info["saddress2"].get()
+        fnl = fname + " " + lname
+        self.controller.info['state'].set(self.c_state.get())
+        state = self.controller.info['state'].get()
+        self.controller.info['country'].set(self.c_country.get())
+        city = self.controller.info["city"].get()
+        zipcode = self.controller.info["zip"].get()
+        country = self.controller.info['country'].get()
+
+        print("First Name:" + " " + fname)
+        print("Last Name:" + " " + lname)
+        print(fnl)
+        print("Email Address:" + " " + email)
+        print("Telephone Number:" + " " + tele)
+        print("Street Address:" + " " + saddress)
+        print("Street Address Line 2:" + " " + saddress2)
+        print("City:" + " " + city)
+        print("Zip Code:" + " " + zipcode)
+        print("State:" + " " + state)
+        print("Country:" + " " + country)
+        controller.show_frame(PaymentPage)
+        # stripe.Customer.create(
+        #     type='individual',
+        #     name=fnl,
+        #     email=email,
+        #     phone_number=tele,
+        #     status='active',
+        #     billing={
+        #         'name': fnl,
+        #         'address': {
+        #             'line1': saddress,
+        #             'city': city,
+        #             'state': state,
+        #             'postal_code': zipcode,
+        #             'country': country
+        #         }
+        #     }
+        # )
+
 
 
 class PaymentPage(tk.Frame):
@@ -511,65 +557,65 @@ class PaymentPage(tk.Frame):
         self.columnconfigure(10, minsize=60, weight=1)
         self.columnconfigure(11, minsize=60, weight=1)
 
-        fbutton = tk.Button(self, text="Filler Button")
-        fbutton.grid(row=0, column=1, sticky=N+E+S+W)
-        button2 = tk.Button(self, text="Filler Button")
-        button2.grid(row=0, column=2, sticky=N+E+S+W)
-        button3 = tk.Button(self, text="Filler Button")
-        button3.grid(row=0, column=3, sticky=N+E+S+W)
-        button4 = tk.Button(self, text="Filler Button")
-        button4.grid(row=0, column=4, sticky=N+E+S+W)
-        button5 = tk.Button(self, text="Filler Button")
-        button5.grid(row=0, column=5, sticky=N+E+S+W)
-        button6 = tk.Button(self, text="Filler Button")
-        button6.grid(row=0, column=6, sticky=N+E+S+W)
-        button7 = tk.Button(self, text="Filler Button")
-        button7.grid(row=0, column=7, sticky=N+E+S+W)
-        button8 = tk.Button(self, text="Filler Button")
-        button8.grid(row=0, column=8, sticky=N+E+S+W)
-        button9 = tk.Button(self, text="Filler Button")
-        button9.grid(row=0, column=9, sticky=N+E+S+W)
-        button10 = tk.Button(self, text="Filler Button")
-        button10.grid(row=0, column=10, sticky=N+E+S+W)
-        missedbutton = tk.Button(self, text="FillerButton")
-        missedbutton.grid(row=0, column=0, sticky=N+E+S+W)
-        bc11 = tk.Button(self, text="Filler Button")
-        bc11.grid(row=0, column=11, sticky=N+E+S+W)
-        bc12 = tk.Button(self, text="Filler Button")
-        bc12.grid(row=0, column=12, sticky=N+E+S+W)
-        button11 = tk.Button(self, text="Filler Button")
-        button11.grid(row=1, column=0, sticky=N+E+S+W)
-        button13 = tk.Button(self, text="Filler Button")
-        button13.grid(row=2, column=0, sticky=N+E+S+W)
-        button14 = tk.Button(self, text="Filler Button")
-        button14.grid(row=3, column=0, sticky=N+E+S+W)
-        button15 = tk.Button(self, text="Filler Button")
-        button15.grid(row=4, column=0, sticky=N+E+S+W)
-        button16 = tk.Button(self, text="Filler Button")
-        button16.grid(row=5, column=0, sticky=N+E+S+W)
-        button17 = tk.Button(self, text="Filler Button")
-        button17.grid(row=6, column=0, sticky=N+E+S+W)
-        button18 = tk.Button(self, text="Filler Button")
-        button18.grid(row=7, column=0, sticky=N+E+S+W)
-        button19 = tk.Button(self, text="Filler Button")
-        button19.grid(row=8, column=0, sticky=N+E+S+W)
-        button20 = tk.Button(self, text="Filler Button")
-        button20.grid(row=9, column=0, sticky=N+E+S+W)
-        button21 = tk.Button(self, text="Filler Button")
-        button21.grid(row=10, column=0, sticky=N+E+S+W)
-        b11 = tk.Button(self, text="Filler Button")
-        b11.grid(row=11, column=0, sticky=N+E+S+W)
-        b12 = tk.Button(self, text="Filler Button")
-        b12.grid(row=12, column=0, sticky=N+E+S+W)
-        b13 = tk.Button(self, text="Filler Button")
-        b13.grid(row=13, column=0, sticky=N+E+S+W)
+        # fbutton = tk.Button(self, text="Filler Button")
+        # fbutton.grid(row=0, column=1, sticky=N+E+S+W)
+        # button2 = tk.Button(self, text="Filler Button")
+        # button2.grid(row=0, column=2, sticky=N+E+S+W)
+        # button3 = tk.Button(self, text="Filler Button")
+        # button3.grid(row=0, column=3, sticky=N+E+S+W)
+        # button4 = tk.Button(self, text="Filler Button")
+        # button4.grid(row=0, column=4, sticky=N+E+S+W)
+        # button5 = tk.Button(self, text="Filler Button")
+        # button5.grid(row=0, column=5, sticky=N+E+S+W)
+        # button6 = tk.Button(self, text="Filler Button")
+        # button6.grid(row=0, column=6, sticky=N+E+S+W)
+        # button7 = tk.Button(self, text="Filler Button")
+        # button7.grid(row=0, column=7, sticky=N+E+S+W)
+        # button8 = tk.Button(self, text="Filler Button")
+        # button8.grid(row=0, column=8, sticky=N+E+S+W)
+        # button9 = tk.Button(self, text="Filler Button")
+        # button9.grid(row=0, column=9, sticky=N+E+S+W)
+        # button10 = tk.Button(self, text="Filler Button")
+        # button10.grid(row=0, column=10, sticky=N+E+S+W)
+        # missedbutton = tk.Button(self, text="FillerButton")
+        # missedbutton.grid(row=0, column=0, sticky=N+E+S+W)
+        # bc11 = tk.Button(self, text="Filler Button")
+        # bc11.grid(row=0, column=11, sticky=N+E+S+W)
+        # bc12 = tk.Button(self, text="Filler Button")
+        # bc12.grid(row=0, column=12, sticky=N+E+S+W)
+        # button11 = tk.Button(self, text="Filler Button")
+        # button11.grid(row=1, column=0, sticky=N+E+S+W)
+        # button13 = tk.Button(self, text="Filler Button")
+        # button13.grid(row=2, column=0, sticky=N+E+S+W)
+        # button14 = tk.Button(self, text="Filler Button")
+        # button14.grid(row=3, column=0, sticky=N+E+S+W)
+        # button15 = tk.Button(self, text="Filler Button")
+        # button15.grid(row=4, column=0, sticky=N+E+S+W)
+        # button16 = tk.Button(self, text="Filler Button")
+        # button16.grid(row=5, column=0, sticky=N+E+S+W)
+        # button17 = tk.Button(self, text="Filler Button")
+        # button17.grid(row=6, column=0, sticky=N+E+S+W)
+        # button18 = tk.Button(self, text="Filler Button")
+        # button18.grid(row=7, column=0, sticky=N+E+S+W)
+        # button19 = tk.Button(self, text="Filler Button")
+        # button19.grid(row=8, column=0, sticky=N+E+S+W)
+        # button20 = tk.Button(self, text="Filler Button")
+        # button20.grid(row=9, column=0, sticky=N+E+S+W)
+        # button21 = tk.Button(self, text="Filler Button")
+        # button21.grid(row=10, column=0, sticky=N+E+S+W)
+        # b11 = tk.Button(self, text="Filler Button")
+        # b11.grid(row=11, column=0, sticky=N+E+S+W)
+        # b12 = tk.Button(self, text="Filler Button")
+        # b12.grid(row=12, column=0, sticky=N+E+S+W)
+        # b13 = tk.Button(self, text="Filler Button")
+        # b13.grid(row=13, column=0, sticky=N+E+S+W)
 
         self.l_swipe = tk.Label(self, text="Swipe Your Card", font=sycfont)
         self.l_swipe.configure(background="#0066AB", foreground="#ffffff", borderwidth=0)
         self.l_swipe.grid(row=6, column=4, columnspan=5, sticky=E+W)
 
         self.e_ccraw = tk.Entry(self, font=buttonfont)
-        self.e_ccraw.focus()
+        self.e_ccraw.focus_set()
         self.e_ccraw.configure(background='#0066AB', foreground='#0066AB', relief=FLAT)
         self.e_ccraw.grid(row=7, column=4, columnspan=5, sticky=E+W)
 
@@ -580,13 +626,13 @@ class PaymentPage(tk.Frame):
         button1.grid(row=0, column=0, sticky=N+E+W)
         # Next Page Button
         btn_Next1 = tk.Button(self, text="Next",
-                              command=lambda: self.senddata())
+                              command=lambda: self.senddata(controller))
         btn_Next1.configure(font=buttonfont, fg='#ffffff', background='#00497a', highlightbackground='#3E4149',
                             relief=SUNKEN)
         btn_Next1.configure(height=3, width=20)
         btn_Next1.grid(row=13, column=12, sticky=S+E+W)
 
-    def senddata(self):
+    def senddata(self, controller):
         self.raw = self.e_ccraw.get()
         print(self.raw)
         if "%E?;E?" in self.raw:
@@ -604,15 +650,28 @@ class PaymentPage(tk.Frame):
 
             for groupNum in range(0, len(match.groups())):
                 groupNum = groupNum + 1
-                self.controller.info['fname'] = match.group(3)
-                self.controller.info['lname'] = match.group(2)
-                self.controller.info['ccn'] = match.group(1)
-                self.controller.info['exp'] = match.group(4)
+                self.controller.info['fname'].set(match.group(3))
+                self.controller.info['lname'].set(match.group(2))
+                self.controller.info['ccn'].set(match.group(1))
+                self.controller.info['exp'].set(match.group(4))
 
-            print("First Name:" + " " + self.controller.info['fname'].get())
-            print("Last Name:" + " " + self.controller.info['lname'].get())
-            print("Card Number:" + " " + self.controller.info['ccn'].get())
-            print("Expiration Date:" + " " + self.controller.info['exp'].get())
+            fname = self.controller.info['fname'].get()
+            lname = self.controller.info['lname'].get()
+            ccn = self.controller.info['ccn'].get()
+            exp = self.controller.info['exp'].get()
+            controller.show_frame(PaymentInfo)
+
+            print("First Name:" + " " + fname)
+            print("Last Name:" + " " + lname)
+            print("Card Number:" + " " + ccn)
+            print("Expiration Date:" + " " + exp)
+            controller.show_frame(PaymentInfo)
+
+
+class Cart(tk.Frame):
+    def __init__(self, parent, controller):
+        self.controller = controller
+        tk.Frame.__init__(self, parent)
 
 
 class PaymentInfo(tk.Frame):
@@ -732,14 +791,14 @@ class PaymentInfo(tk.Frame):
         self.l_lname2.configure(background='#0066AB', foreground='#ffffff')
         self.l_lname2.grid(row=3, column=7, sticky=W+S)
         # Entry for Last Name
-        self.e_lname2 = tk.Entry(self, font=entryfont)
+        self.e_lname2 = tk.Entry(self, font=entryfont, textvariable=self.controller.info['lname'])
         self.e_lname2.grid(row=4, column=7, columnspan=4, sticky=E+W)
         # Label for Credit Card Number
         self.l_ccn = tk.Label(self, text="Credit Card Number*", font=font9)
         self.l_ccn.configure(background='#0066AB', foreground='#ffffff')
         self.l_ccn.grid(row=5, column=2, sticky=W+S)
         # Entry for Credit Card Number
-        self.e_ccn = tk.Entry(self, font=entryfont)
+        self.e_ccn = tk.Entry(self, font=entryfont, textvariable=self.controller.info['ccn'])
         self.e_ccn.grid(row=6, column=2, columnspan=4, sticky=E+W)
         # Label for Security Code
         self.l_ccs = tk.Label(self, text="Security Code", font=font9)
@@ -749,28 +808,19 @@ class PaymentInfo(tk.Frame):
         self.e_ccs = tk.Entry(self, font=entryfont)
         self.e_ccs.grid(row=6, column=7, sticky=E+W)
         # Label for Expiration Date
-        self.l_stradd2 = tk.Label(self, text="Expiration Date", font=font9)
-        self.l_stradd2.configure(background='#0066AB', foreground='#ffffff')
-        self.l_stradd2.grid(row=7, column=2, sticky=W+S)
+        self.l_exp = tk.Label(self, text="Expiration Date", font=font9)
+        self.l_exp.configure(background='#0066AB', foreground='#ffffff')
+        self.l_exp.grid(row=7, column=2, sticky=W+S)
         # Entry for Street Address Line 2
-        self.e_stradd2 = tk.Entry(self, font=entryfont)
-        self.e_stradd2.grid(row=8, column=2, columnspan=9, sticky=E+W)
-        # Label for City
-        self.l_city = tk.Label(self, text="City *", font=font9)
-        self.l_city.configure(background='#0066AB', foreground='#ffffff')
-        self.l_city.grid(row=9, column=2, sticky=W+S)
-        # Entry for City
-        self.e_city = tk.Entry(self, font=entryfont)
-        self.e_city.grid(row=10, column=2, columnspan=4, sticky=E+W)
-
+        self.e_exp = tk.Entry(self, font=entryfont, textvariable=self.controller.info['exp'])
+        self.e_exp.grid(row=8, column=2, columnspan=3, sticky=E+W)
         # Label for Zip Code
         self.l_zip = tk.Label(self, text="Postal Code *", font=font9)
         self.l_zip.configure(background='#0066AB', foreground='#ffffff')
-        self.l_zip.grid(row=11, column=2, sticky=W+S)
+        self.l_zip.grid(row=7, column=7, sticky=W+S)
         # Entry for Zip Code
         self.e_zip = tk.Entry(self, font=entryfont)
-        self.e_zip.grid(row=12, column=2, columnspan=4, sticky=E+W)
-
+        self.e_zip.grid(row=8, column=7, columnspan=3, sticky=E+W)
 
 
 app = SeaofBTCapp()
